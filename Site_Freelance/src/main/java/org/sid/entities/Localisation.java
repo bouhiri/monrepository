@@ -1,4 +1,4 @@
-package org.sid;
+package org.sid.entities;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +17,6 @@ public class Localisation implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-
 	private Integer idLocalisation;
 	private String ville;
 	private String quartier;
@@ -43,8 +42,7 @@ public class Localisation implements java.io.Serializable {
 		this.idLocalisation = idLocalisation;
 	}
 
-	public Localisation(Integer idLocalisation, Freelancer freelancer, String ville, String quartier) {
-		this.idLocalisation = idLocalisation;
+	public Localisation(String ville, String quartier) {
 		this.ville = ville;
 		this.quartier = quartier;
 	}

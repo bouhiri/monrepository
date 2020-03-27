@@ -1,4 +1,6 @@
-package org.sid;
+package org.sid.entities;
+// Generated 19 mars 2020 16:20:42 by Hibernate Tools 4.0.1.Final
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -59,4 +61,3 @@ public class Evaluation implements java.io.Serializable {
 	}
 
 }
-

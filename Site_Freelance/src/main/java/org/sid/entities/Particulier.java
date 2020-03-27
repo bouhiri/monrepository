@@ -1,4 +1,4 @@
-package org.sid;
+package org.sid.entities;
 
 import java.util.HashSet;
 import java.util.Set;

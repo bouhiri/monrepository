@@ -1,4 +1,4 @@
-package org.sid;
+package org.sid.entities;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -41,7 +41,7 @@ public class Freelancer implements java.io.Serializable {
 //	inverseJoinColumns = @JoinColumn(name = "idLocalisation"))
 //	private Set<Localisation> localisations = new HashSet<Localisation>();
 	@ManyToOne
-	@JoinColumn(name = "idLocalisation",nullable=false)
+	@JoinColumn(name = "idLocalisation", nullable = false)
 	private Localisation localisation;
 	public Freelancer() {
 	}
@@ -142,8 +142,8 @@ public class Freelancer implements java.io.Serializable {
 		return localisation;
 	}
 
-	public void setLocalisation(Localisation localisation) {
-		this.localisation= localisation;
+	public void setLocalisation(Localisation localisations) {
+		this.localisation = localisations;
 	}
 
 	public Freelancer(String nom, String prenom, String email, Long mobile, String password, String diplome,
@@ -158,7 +158,7 @@ public class Freelancer implements java.io.Serializable {
 		this.experience = experience;
 		this.avis = avis;
 		this.competences = competences;
-		this.localisation = localisation;
+		this.localisation = localisations;
 	}
 
 	
