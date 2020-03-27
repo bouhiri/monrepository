@@ -1,4 +1,5 @@
-package org.sid;
+package org.sid.entities;
+// Generated 19 mars 2020 16:20:42 by Hibernate Tools 4.0.1.Final
 
 import java.util.HashSet;
 import java.util.Set;
