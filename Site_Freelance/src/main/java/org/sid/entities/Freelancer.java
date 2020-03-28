@@ -31,18 +31,22 @@ public class Freelancer implements java.io.Serializable {
 	private String experience;
 	@OneToMany(targetEntity = Avis.class, mappedBy = "freelancer")
 	private Set<Avis> avis = new HashSet<Avis>();
+	@OneToMany(targetEntity = Evaluation.class, mappedBy = "freelancer")
+	private Set<Evaluation> evaluations = new HashSet<Evaluation>();
 	@ManyToMany
-	@JoinTable(name = "FreelancerCompetances",
-	joinColumns = @JoinColumn(name = "idFreelancer"), 
-	inverseJoinColumns = @JoinColumn(name = "idCompetence"))
+	@JoinTable(name = "FreelancerCompetances", joinColumns = @JoinColumn(name = "idFreelancer"),
+		inverseJoinColumns = @JoinColumn(name = "idCompetence"))
 	private Set<Competence> competences = new HashSet<Competence>();
-//	@ManyToMany
-//	@JoinTable(name = "FreelancerLocalisation", joinColumns = @JoinColumn(name = "idFreelancer"), 
-//	inverseJoinColumns = @JoinColumn(name = "idLocalisation"))
-//	private Set<Localisation> localisations = new HashSet<Localisation>();
 	@ManyToOne
 	@JoinColumn(name = "idLocalisation", nullable = false)
 	private Localisation localisation;
+	public Set<Evaluation> getEvaluations() {
+		return evaluations;
+	}
+	public void setEvaluations(Set<Evaluation> evaluations) {
+		this.evaluations = evaluations;
+	}
+
 	public Freelancer() {
 	}
 
@@ -160,7 +164,5 @@ public class Freelancer implements java.io.Serializable {
 		this.competences = competences;
 		this.localisation = localisations;
 	}
-
-	
 
 }
