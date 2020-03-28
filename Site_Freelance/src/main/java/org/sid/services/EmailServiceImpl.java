@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 @Service("emailService")
 public class EmailServiceImpl implements EmailService {
 	@Autowired
-	private JavaMailSender mailSender;
+	private JavaMailSender mailSenderService;
 
 	@Async
 	public void sendEmail(SimpleMailMessage email) {
-		mailSender.send(email);/***/
+		mailSenderService.send(email);/***/
 	}
 
 	@Override
