@@ -14,7 +14,7 @@ public class EmailServiceImpl implements EmailService {
 
 	@Async
 	public void sendEmail(SimpleMailMessage email) {
-		mailSender.send(email);
+		mailSender.send(email);/***/
 	}
 
 	@Override
