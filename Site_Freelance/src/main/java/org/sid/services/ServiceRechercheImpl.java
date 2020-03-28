@@ -35,7 +35,7 @@ public class ServiceRechercheImpl implements ServiceRecherche {
 
 	@Override
 	public Set<Freelancer> ChercherParLocalisation(String ville) {
-		Optional<Localisation> freelancers= LocalisationRepository.findByVille(null);
+		Optional<Localisation> freelancers= LocalisationRepository.findByVille("");
 		if(freelancers.isPresent())
 		return freelancers.get().getFreelancers();
 		else 
