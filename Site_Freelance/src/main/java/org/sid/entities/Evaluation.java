@@ -22,8 +22,19 @@ public class Evaluation implements java.io.Serializable {
 	private Integer idEvaluation;
 	private Byte noteEvaluation;
 	@ManyToOne
-	@JoinColumn(name = "idParticulier", nullable = false)
+	@JoinColumn(name = "idParticulier", nullable = true)
 	private Particulier particulier;
+	@ManyToOne
+	@JoinColumn(name = "idFreelancer", nullable = true)
+	private Freelancer freelancer;
+
+	public Freelancer getFreelancer() {
+		return freelancer;
+	}
+
+	public void setFreelancer(Freelancer freelancer) {
+		this.freelancer = freelancer;
+	}
 
 	public Particulier getParticulier() {
 		return particulier;
