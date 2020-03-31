@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Connexion Freelancer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../static/styles.css"
+	th:href="@{/styles.css}">
+
+</head>
+<body>
+	<div th:replace="template :: header"></div>
+
+	<div class="col-md-6 offset-md-3">
+		<span class="anchor" id="formLogin"></span>
+		<!-- form card login with validation feedback -->
+		<div class="card card-outline-secondary">
+			<div class="card-header">
+				<h3 class="mb-0">Login</h3>
+			</div>
+			<div class="card-body">
+				<form class="form" role="form" action="#" autocomplete="off" id="loginForm" 
+				th:action="@{/connexionFreelancer}" th:object="${login}" 
+					 method="POST">
+					<div class="form-group">
+                        <label for="uname1">Email</label>
+                        <input type="text" class="form-control" th:field="*{mail}"  id="uname1" required="required"/>
+						<span  class="form-text small text-muted" th:if="${messageValid}"> merci d'entre une adresse email valid </span>                   
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" th:field="*{password}"  id="pwd1" required="required" autocomplete="new-password"/>
+						<span  class="form-text small text-muted" th:if="${messageValid}"> merci de sesaire un password </span>                   
+                    </div>
+                    <button type="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Connexion</button>
+        			</form>
+        			<div >
+        			<div  th:if="${messageForm}">Mail or password incorrect</div>
+                    <a href="forgotPasswordFreelancerPage" th:if="${messageForm}" > Mot de pass oublier ?</a>
+                    </div>
+			</div>
+			<!--/card-body-->
+		</div>
+		<!-- /form card login -->
+	</div>
+		<div th:replace="template :: footer"></div>
+	
+</body>
+</html>

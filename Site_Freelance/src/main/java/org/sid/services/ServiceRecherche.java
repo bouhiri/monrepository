@@ -15,5 +15,7 @@ public interface ServiceRecherche {
 
 	public List<Offre> listAllOffre();
 
+	public Set<Freelancer> listAllFreelancers();
+
 	public List<Offre> listOffreParMot(String mot);
 }

@@ -11,6 +11,8 @@ import org.sid.entities.Evaluation;
 import org.sid.entities.Freelancer;
 import org.sid.entities.Particulier;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+@Service("serviceEvaluation")
 
 public class ServiceEvaluationImpl implements ServiceEvaluation {
 	@Autowired
