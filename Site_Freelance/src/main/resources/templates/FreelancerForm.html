@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template1">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content"></div>
+	<div class="col-md">
+		<div class="panel panel-primary">
+			<div class="panel-heading">Inscription Freelancer</div>
+			<div class="panel-body">      
+	<form action="#" th:action="@{/inscriptiondufreelancer}" th:object="${freelancerForm}"method="post">
+					<div>
+						<label>Nom</label> 
+						<input type="text" th:field="*{nom}" />
+					</div>
+					<div>
+						<label>Prenom</label> 
+						<input type="text" th:field="*{prenom}"/>
+					</div>
+					<div>
+						<label>Email</label> 
+						<input type="email"th:field="*{email}"/>		
+					</div>
+					<div >
+						<label>Numero de telephone</label> 
+						<input type="number"th:field="*{mobile}"/>
+					</div>
+
+					<div>
+						<label>Ville</label> 	
+					<select class="form-control" id="inputVille">
+							<option>Agadir</option>
+							<option>CasaBlanca</option>
+							<option>Eljadida</option>
+							<option>Fes</option>
+							<option>Kenitra</option>
+							<option>Marrakech</option>
+							<option>Mohammedia</option>
+							<option>Oujda</option>
+							<option>Rabat</option>
+							<option>Safi</option>
+							<option>Sale</option>
+							<option>Tanger</option>
+							<option>Autre</option>
+						</select>
+					</div>
+					<div>
+						<label>Quartier</label> 
+						<input type="text" th:field="*{Quartier}"/>
+					</div>
+
+					<div>
+						<label>Experience</label>
+						<textarea class="form-control" id="exampleMessage"></textarea>
+						<small class="text-info">Decrire vos experiences ici</small>
+					</div>
+					<div>
+						<label>Diplome</label>
+						<textarea class="form-control" id="inputDiplomes"></textarea>
+						<small class="text-info">Decrire vos Diplomes ici</small>
+					</div>
+					<div class="form-group">
+						<label>Password</label> 
+						<input type="password" th:field="*{password}"/>
+					</div>
+					<div>
+						<label>Verify</label> 
+						<input type="password" th:field="*{repassword}"/>
+					</div>
+					<div>
+						<button type="submit" class="btn btn-primary">Register</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

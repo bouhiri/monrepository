@@ -51,6 +51,9 @@ public class Particulier implements java.io.Serializable {
 		this.evaluations = evaluations;
 		this.offres = offres;
 	}
+	public Particulier() {
+		// TODO Auto-generated constructor stub
+	}
 	public Integer getIdParticulier() {
 		return idParticulier;
 	}

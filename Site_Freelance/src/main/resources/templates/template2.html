@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8" />
+<title>AutentificationFreelancer</title>
+
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" href="../static/css/myStyle.css"
+	th:href="@{/css/myStyle.css}" />
+</head>
+<body>
+	<header>
+		<div class="navbar navbar-default"></div>
+	</header>
+	<section layout:fragment="content"></section>
+	<footer>
+		<div class="navbar-fixed-bottom"></div>
+		<small> adresse du site</small>
+	</footer>
+</body>
+</html>

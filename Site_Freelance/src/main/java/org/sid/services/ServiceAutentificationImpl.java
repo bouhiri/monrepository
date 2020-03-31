@@ -8,7 +8,10 @@ import org.sid.dao.ParticulierRepository;
 import org.sid.entities.Freelancer;
 import org.sid.entities.Particulier;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+@Service
+@Transactional
 public class ServiceAutentificationImpl  implements ServiceAutentification{
 	@Autowired
 	FreelancerRepository freelancerRepository;
@@ -49,6 +52,16 @@ public class ServiceAutentificationImpl  implements ServiceAutentification{
 			// email incorrect or inexistant
 		}
 		return freelancer;
+	}
+	@Override
+	public Freelancer inscriptiondufreelancer(Freelancer free) {
+		return freelancerRepository.save(free);
+		
+	}
+	@Override
+	public Particulier inscriptionduparticulier(Particulier pr) {
+		
+		return particulierRepository.save(pr);
 	}
 	
 	

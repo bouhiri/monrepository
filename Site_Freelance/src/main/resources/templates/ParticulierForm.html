@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template1">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div layout:fragment="content"></div>
+	<div class="col-md">
+		<div class="panel panel-primary">
+<div class="panel-heading">Inscription Particulier</div>
+			<div class="panel-body">
+			<form action="#" th:action="@{/inscriptionduparticulier}" th:object="${particulierForm}"method="post">
+                    <div>
+                        <label>Nom</label>
+                        <input type="text" th:field="*{nom}" />
+                    </div>
+                    <div>
+                        <label>Prenom</label>
+                        <input  type="text" th:field="*{prenom}"/>
+                    </div>
+                    <div>
+                        <label>Email</label>
+                        <input  type="email"th:field="*{email}"/>
+                    </div>
+                    <div>
+						<label>Adresse</label> 
+						<input type="text" th:field="*{adresse}"/>
+					</div>
+                    <div>
+                        <label>Password</label>
+                        <input  type="password" th:field="*{password}"/>
+                    </div>
+                    <div>
+                        <label >Verify</label>
+                        <input type="password" th:field="*{repassword}"/>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </form> 
+                </div>
+		</div>
+	</div>     
+
+</body>
+</html>
