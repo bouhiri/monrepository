@@ -57,7 +57,7 @@ public class ServiceRechercheImpl implements ServiceRecherche {
 
 	@Override
 	public List<Offre> listOffreParMot(String mot) {
-		return offreRepository.listOffreParMot(mot);
+		return offreRepository.listOffreParMot("%"+mot+"%");
 	}
 
 	@Override
