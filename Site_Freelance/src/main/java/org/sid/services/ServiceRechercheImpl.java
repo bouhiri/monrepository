@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.sid.dao.CompetancesRepository;
+import org.sid.dao.FreelancerRepository;
 import org.sid.dao.LocalisationRepository;
 import org.sid.dao.OffreRepository;
 import org.sid.entities.Competence;
@@ -17,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Service("serviceRecherche")
 @Transactional
 public class ServiceRechercheImpl implements ServiceRecherche {
 	@Autowired
@@ -26,6 +27,8 @@ public class ServiceRechercheImpl implements ServiceRecherche {
 	private LocalisationRepository LocalisationRepository;
 	@Autowired
 	private OffreRepository offreRepository;
+	@Autowired
+	private FreelancerRepository freelancerRepository;
 
 	@Override
 	public Set<Freelancer> chercherParCompetences(String domaine) {
@@ -59,29 +62,40 @@ public class ServiceRechercheImpl implements ServiceRecherche {
 
 	@Override
 	public Set<Freelancer> chercherParLocalisationCompetance(String ville, String domaine) {
-		Set<Freelancer> freelancerParCompetance  = chercherParCompetences(domaine);
+		Set<Freelancer> freelancerParCompetance = chercherParCompetences(domaine);
 		Set<Freelancer> freelancerParLocalisation = chercherParLocalisation(ville);
-		
-		Set<Freelancer>  outPut = new HashSet<Freelancer>();
-		
-		for (Freelancer freelancer : freelancerParCompetance) {
-			if(freelancer.getLocalisation().getVille().equals(ville)) {
-				outPut.add(freelancer);
+
+		Set<Freelancer> outPut = new HashSet<Freelancer>();
+		if (freelancerParCompetance != null) {
+			for (Freelancer freelancer : freelancerParCompetance) {
+				if (freelancer.getLocalisation().getVille().equals(ville)) {
+					outPut.add(freelancer);
+				}
 			}
 		}
-		
-		for (Freelancer freelancer : freelancerParLocalisation) {
-			Set<Competence> comp = freelancer.getCompetences();
-			List<String> domaines = new ArrayList<String>();
-			for (Competence compt : comp) {
-				domaines.add(compt.getDomaine());
-			}
-			if(domaines.contains(domaine)) {
-				outPut.add(freelancer);
+		if (freelancerParLocalisation != null) {
+			for (Freelancer freelancer : freelancerParLocalisation) {
+				Set<Competence> comp = freelancer.getCompetences();
+				List<String> domaines = new ArrayList<String>();
+				for (Competence compt : comp) {
+					domaines.add(compt.getDomaine());
+				}
+				if (domaines.contains(domaine)) {
+					outPut.add(freelancer);
+				}
 			}
 		}
-		
 		return outPut;
+	}
+
+	@Override
+	public Set<Freelancer> listAllFreelancers() {
+		Set<Freelancer> freelancer = new HashSet<Freelancer>();
+		List<Freelancer> fr = freelancerRepository.findAll();
+		for (Freelancer freelancer2 : fr) {
+			freelancer.add(freelancer2);
+		}
+		return freelancer;
 	}
 
 }

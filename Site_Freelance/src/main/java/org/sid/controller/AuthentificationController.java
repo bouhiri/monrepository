@@ -1,4 +1,4 @@
-package org.sid.web;
+package org.sid.controller;
 
 import javax.validation.Valid;
 
