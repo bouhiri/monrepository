@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CompetancesRepository extends JpaRepository<Competence	, Integer>{
 	Optional<Competence>findByDomaine(String domaine);
+
 }

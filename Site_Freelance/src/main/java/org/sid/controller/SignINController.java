@@ -1,22 +1,19 @@
 package org.sid.controller;
 
-import java.util.Optional;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.sid.dao.FreelancerRepository;
 import org.sid.entities.Freelancer;
 import org.sid.forms.Login;
 import org.sid.services.EmailService;
 import org.sid.services.ServiceAutentification;
+import org.sid.services.ServiceRecherche;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import net.bytebuddy.utility.RandomString;
@@ -26,21 +23,15 @@ public class SignINController implements WebMvcConfigurer {
 	@Autowired
 	private EmailService emailService;
 	@Autowired
-	private FreelancerRepository freelancerRepository;
-	@Autowired
 	private ServiceAutentification serviceAutentification;
+	@Autowired
+	private ServiceRecherche serviceRecherche;
 
 	@RequestMapping(value = "/loginFreelancer")
 	public String loginFreelancer(Model model) {
 		model.addAttribute("message", false);
 		model.addAttribute("login", new Login());
 		return "loginFreelancer";
-	}
-	
-
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/results").setViewName("results");
 	}
 
 	@RequestMapping(value = "/connexionFreelancer")
@@ -58,6 +49,9 @@ public class SignINController implements WebMvcConfigurer {
 				message = true;
 				model.addAttribute("messageForm", message);
 				pageAfter = "loginFreelancer";
+			} else {
+				model.addAttribute("isParticulier", false);
+				model.addAttribute("freelancer", freelancer);
 			}
 		}
 		return pageAfter;
@@ -71,10 +65,8 @@ public class SignINController implements WebMvcConfigurer {
 	@RequestMapping(value = "/resetPasswordFreelancer")
 	public String forgotPasswordFreelancer(Model model, @RequestParam("email") String email, HttpSession session) {
 		String pageAfter, validationCode = RandomString.make(5);
-		Freelancer freelancer;
-		Optional<Freelancer> optionnelFreelancer = freelancerRepository.findByEmail(email);
-		if (optionnelFreelancer.isPresent()) {
-			freelancer = optionnelFreelancer.get();
+		Freelancer freelancer = serviceRecherche.findFreelancerByEmail(email);
+		if (freelancer != null) {
 			emailService.resetPasswordMail(freelancer, validationCode);
 			session.setAttribute("validationCode", validationCode);
 			session.setAttribute("freelancer", freelancer);
@@ -96,9 +88,12 @@ public class SignINController implements WebMvcConfigurer {
 			pageAfter = currentPage;
 		} else if (!validationInput.equals(validationCode)) {
 			pageAfter = currentPage;
-		} else
+		} else {
 			freelancer.setPassword(password);
-			freelancerRepository.save(freelancer);
+			serviceRecherche.updateFreelancer(freelancer);
+			model.addAttribute("isParticulier", false);
+		}
+
 		return pageAfter;
 	}
 }

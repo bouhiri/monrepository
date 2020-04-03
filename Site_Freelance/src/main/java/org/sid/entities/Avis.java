@@ -16,9 +16,9 @@ public class Avis implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idAvis;
 	private String description;
-    @ManyToOne @JoinColumn(name="idFreelancer", nullable=false)
+    @ManyToOne @JoinColumn(name="idFreelancer")
 	private Freelancer freelancer;
-    @ManyToOne @JoinColumn(name="idParticulier", nullable=false)
+    @ManyToOne @JoinColumn(name="idParticulier")
 	private Particulier particulier;
 	
 	public Avis(String description, Freelancer freelancer, Particulier particulier) {
