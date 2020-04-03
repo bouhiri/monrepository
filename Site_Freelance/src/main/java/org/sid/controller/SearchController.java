@@ -62,13 +62,13 @@ public class SearchController {
  @RequestMapping("/offres")
  public String ChercherOffre(Model model) {
  	model.addAttribute("offres",serviceRecherche.listAllOffre());
- 	return "ListOffre";}
+ 	return "Liste des offres";}
  
 @RequestMapping("/offremotclé")
 public String ChercherParMotcle(Model model,@RequestParam("mot") String mot) {
-	model.addAttribute("chercherparmotcle", serviceRecherche.listOffreParMot(mot));
+	model.addAttribute("offres", serviceRecherche.listOffreParMot(mot));
 	
-	return "ListOffre";
+	return "Liste des offres";
 }
  
  }

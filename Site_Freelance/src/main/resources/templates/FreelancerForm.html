@@ -14,30 +14,35 @@
 </head>
 <body>
 	<div th:replace="template :: header"></div>
-	<div class="col-md">
-		<div class="panel panel-primary">
-			<div class="panel-heading">Inscription Freelancer</div>
-			<div class="panel-body">      
-	<form action="#" th:action="@{/inscriptiondufreelancer}" th:object="${freelancerForm}"method="post">
-					<div>
-						<label>Nom</label> 
-						<input type="text" th:field="*{nom}" />
-					</div>
-					<div>
-						<label>Prenom</label> 
-						<input type="text" th:field="*{prenom}"/>
-					</div>
-					<div>
-						<label>Email</label> 
-						<input type="email"th:field="*{email}"/>		
-					</div>
-					<div >
-						<label>Numero de telephone</label> 
-						<input type="number"th:field="*{mobile}"/>
-					</div>
+	<div class="col-md-6 offset-md-3">
+        <span class="anchor" id="formRegister"></span>
+        <hr class="mb-5">
+        <!-- form card register -->
+        <div class="card card-outline-secondary">
+            <div class="card-header">
+                <h3 class="mb-0">Inscription Freelancer</h3>
+            </div>
+            <div class="card-body">
+	  <form action="#" th:action="@{/inscriptiondufreelancer}" th:object="${freelancerForm}"method="post"> 
+						<div class="form-group">
+                        <label for="inputName">Nom</label>
+                        <input type="text"  class="form-control" id="inputNom" th:field="*{nom}" />
+                    </div>	
+                    <div class="form-group">
+                        <label for="inputPrenom">Prenom</label>
+                        <input type="text" class="form-control" id="inputPrenom" th:field="*{prenom}"/>
+                    </div>
+					<div class="form-group">
+                        <label for="inputEmail3">Email</label>
+                        <input type="email" class="form-control" id="inputEmail3" th:field="*{mobile}"required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputphone">Numero de telephone</label>
+                        <input type="number" class="form-control" id="inputphone" th:field="*{mobile}"required="required"/>
+                    </div>
 
-					<div>
-						<label>Ville</label> 	
+					<div class="form-group">
+                        <label for="inputVille">Ville</label>	
 					<select class="form-control" id="inputVille">
 							<option>Agadir</option>
 							<option>CasaBlanca</option>
@@ -54,29 +59,29 @@
 							<option>Autre</option>
 						</select>
 					</div>
-					<div>
-						<label>Quartier</label> 
-						<input type="text" th:field="*{Quartier}"/>
-					</div>
-
-					<div>
-						<label>Experience</label>
-						<textarea class="form-control" id="exampleMessage"></textarea>
-						<small class="text-info">Decrire vos experiences ici</small>
-					</div>
-					<div>
-						<label>Diplome</label>
-						<textarea class="form-control" id="inputDiplomes"></textarea>
-						<small class="text-info">Decrire vos Diplomes ici</small>
-					</div>
 					<div class="form-group">
-						<label>Password</label> 
-						<input type="password" th:field="*{password}"/>
-					</div>
-					<div>
-						<label>Verify</label> 
-						<input type="password" th:field="*{repassword}"/>
-					</div>
+                        <label for="inputQuartier">Quartier</label>
+                        <input type="text" class="form-control" id="inputQuartier" th:field="*{Quartier}" required="required"/>
+                    </div>
+
+					<div class="form-group">
+                        <label for="exampleMessage">Experience</label>
+                        <textarea class="form-control" id="exampleMessage"></textarea>
+                        <small class="text-info">Decrire vos experiences ici.</small>
+                    </div>
+                     <div class="form-group">
+                        <label for="inputDiplomes">Diplomes</label>
+                        <textarea class="form-control" id="inputDiplomes"></textarea>
+                        <small class="text-info">Decrire vos Diplomes ici.</small> 
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3">Password</label>
+                        <input type="password" class="form-control" id="inputPassword3" th:field="*{password}" required="required"/>
+                    </div>
+					<div class="form-group">
+                        <label for="inputVerify3">Verify</label>
+                        <input type="password" class="form-control" id="inputVerify3" th:field="*{repassword}" required="required"/>
+                    </div>
 					<div>
 						<button type="submit" class="btn btn-primary">Register</button>
 					</div>
