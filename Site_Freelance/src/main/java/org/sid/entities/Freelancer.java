@@ -38,7 +38,7 @@ public class Freelancer implements java.io.Serializable {
 		inverseJoinColumns = @JoinColumn(name = "idCompetence"))
 	private Set<Competence> competences = new HashSet<Competence>();
 	@ManyToOne
-	@JoinColumn(name = "idLocalisation", nullable = false)
+	@JoinColumn(name = "idLocalisation")
 	private Localisation localisation;
 	public Set<Evaluation> getEvaluations() {
 		return evaluations;

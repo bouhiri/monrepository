@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+
 @Service
 @Transactional
 public class ServiceEvaluationImpl implements ServiceEvaluation {
@@ -27,11 +28,13 @@ public class ServiceEvaluationImpl implements ServiceEvaluation {
 	public ParticulierRepository particulierRepository;
 
 	@Override
-	public void AjouterAvis(Avis avis, Freelancer freelancer) {
-		avisRepository.save(avis);
+	public void AjouterAvis(Avis avis, Freelancer freelancer, Particulier particulier) {
 		Set<Avis> freelancerAvis = freelancer.getAvis();
 		freelancerAvis.add(avis);
 		freelancer.setAvis(freelancerAvis);
+		avis.setFreelancer(freelancer);
+		avis.setParticulier(particulier);
+		avisRepository.save(avis);
 		freelancerRepository.save(freelancer);
 	}
 
@@ -48,10 +51,11 @@ public class ServiceEvaluationImpl implements ServiceEvaluation {
 	public void DonnerNote(Freelancer freelancer, Byte note) {
 		Evaluation evaluation = new Evaluation();
 		evaluation.setNoteEvaluation(note);
-		// evaluation.setFreelancer(freelancer);
+		evaluation.setFreelancer(freelancer);
 		Set<Evaluation> evaluations = freelancer.getEvaluations();
 		evaluations.add(evaluation);
 		freelancer.setEvaluations(evaluations);
+		
 		evaluationRepository.save(evaluation);
 		freelancerRepository.save(freelancer);
 	}
@@ -63,7 +67,19 @@ public class ServiceEvaluationImpl implements ServiceEvaluation {
 		for (Evaluation evaluation : evaluations) {
 			avrg += (double) evaluation.getNoteEvaluation();
 		}
-		return  avrg / (double) evaluations.size();
+		return avrg / (double) evaluations.size();
+	}
+
+	@Override
+	public void deleteAvisById(Integer id) {
+		avisRepository.deleteById(id);
+
+	}
+
+	@Override
+	public void deleteEvaluationById(Integer id) {
+		evaluationRepository.deleteById(id);
+
 	}
 
 }

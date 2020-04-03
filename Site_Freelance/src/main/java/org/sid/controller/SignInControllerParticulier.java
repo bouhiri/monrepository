@@ -1,15 +1,13 @@
 package org.sid.controller;
 
-import java.util.Optional;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.sid.dao.ParticulierRepository;
 import org.sid.entities.Particulier;
 import org.sid.forms.Login;
 import org.sid.services.EmailService;
 import org.sid.services.ServiceAutentification;
+import org.sid.services.ServiceRecherche;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,29 +18,30 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import net.bytebuddy.utility.RandomString;
+
 @Controller
 public class SignInControllerParticulier implements WebMvcConfigurer {
 	@Autowired
 	private EmailService emailService;
 	@Autowired
-	private ParticulierRepository particulierRepository;
-	@Autowired
 	private ServiceAutentification serviceAutentification;
+	@Autowired
+	private ServiceRecherche serviceRecherche;
 
 	@RequestMapping(value = "/")
 	public String toHome(Model model) {
 		return "home";
 	}
-   /*********************** HOME PAGE ************************/
-	
+
+	/*********************** HOME PAGE ************************/
+
 	@RequestMapping(value = "/loginParticulier")
 	public String loginParticulier(Model model) {
 		model.addAttribute("message", false);
 		model.addAttribute("login", new Login());
 		return "loginParticulier";
 	}
-	
-	
+
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/results").setViewName("results");
@@ -63,6 +62,9 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 				message = true;
 				model.addAttribute("messageForm", message);
 				pageAfter = "loginParticulier";
+			} else {
+				model.addAttribute("isParticulier", true);
+				model.addAttribute("particulier", particulier);
 			}
 		}
 		return pageAfter;
@@ -76,10 +78,8 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 	@RequestMapping(value = "/resetPasswordParticulier")
 	public String forgotPasswordParticulier(Model model, @RequestParam("email") String email, HttpSession session) {
 		String pageAfter, validationCode = RandomString.make(5);
-		Particulier particulier;
-		Optional<Particulier> optionnelParticulier = particulierRepository.findByEmail(email);
-		if (optionnelParticulier.isPresent()) {
-			particulier = optionnelParticulier.get();
+		Particulier particulier = serviceRecherche.findParticulierByEmail(email);
+		if (particulier != null) {
 			emailService.resetPasswordMail(particulier, validationCode);
 			session.setAttribute("validationCode", validationCode);
 			session.setAttribute("particulier", particulier);
@@ -101,9 +101,10 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 			pageAfter = currentPage;
 		} else if (!validationInput.equals(validationCode)) {
 			pageAfter = currentPage;
-		} else
+		} else {
 			particulier.setPassword(password);
-			particulierRepository.save(particulier);
+			serviceRecherche.updateParticulier(particulier);
+		}
 		return pageAfter;
 	}
 }

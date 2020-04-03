@@ -76,8 +76,8 @@
 			<th:block th:each="f: ${all}">
 				<div class="container mt-3">
 					<div class="media border p-3 w-75">
-<!-- 						<img src="/resources/templates/img.jpg" th:src="@{/resources/templates/img.jpg}" alt="John Doe" class="mr-3 mt-3 rounded-circle" -->
-							style="width: 60px;">
+<!--						<img src="/resources/templates/img.jpg" th:src="@{/resources/templates/img.jpg}" alt="John Doe" class="mr-3 mt-3 rounded-circle" 
+							style="width: 60px;"> -->
 						<div class="media-body">
 							<h4 th:text="${f[0].nom}"><small><i>Java Developper</i></small></h4>
 							<h4>
@@ -85,9 +85,8 @@
 							</h4>
 							<p>I can Design a Dynamic web sites with new technologies,
 								new frameworks</p>
-							<a href="#" class="btn btn-primary">See Profile</a> <a href="#"
-								class="btn btn-outline-primary">Message</a> <span
-								class="badge badge-success float-sm-right" th:text="${f[1]}"><h4>9.5</h4></span>
+							<a th:href="@{/seeProfile(id=${f[0].idFreelancer})}" class="btn btn-primary">See Profile</a> 
+							<span class="badge badge-success float-sm-right" th:text="${f[1]}"><h4>9.5</h4></span>
 						</div>
 					</div>
 				</div>
