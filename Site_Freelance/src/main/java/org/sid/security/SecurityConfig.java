@@ -11,16 +11,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("admin").password("{noop}123654").roles("ADMIN","USER");
-		auth.inMemoryAuthentication().withUser("user").password("{noop}123654").roles("USER");
+		//auth.inMemoryAuthentication().withUser("admin").password("{noop}123654").roles("ADMIN","USER");
+	//	auth.inMemoryAuthentication().withUser("user").password("{noop}123654").roles("USER");
 		
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.formLogin();
-		http.authorizeRequests().antMatchers("/freelancerPageSerach","/offres","/offremotclé","/particulierinscription","/freelancerinscription","/loginFreelancer","/connexionFreelancer","/loginParticulier","/connexionParticulier").hasRole("USER");
-		http.authorizeRequests().antMatchers("/forgotPasswordFreelancerPage","/resetPasswordFreelancer","/forgotPasswordParticulierPage","/resetPasswordParticulierToPrfile").hasRole("ADMIN");
+		//http.formLogin();
+		//http.authorizeRequests().antMatchers("/freelancerPageSerach","/offres","/offremotclé","/particulierinscription","/freelancerinscription","/loginFreelancer","/connexionFreelancer","/loginParticulier","/connexionParticulier").hasRole("USER");
+		//http.authorizeRequests().antMatchers("/forgotPasswordFreelancerPage","/resetPasswordFreelancer","/forgotPasswordParticulierPage","/resetPasswordParticulierToPrfile").hasRole("ADMIN");
 		
 	}
 

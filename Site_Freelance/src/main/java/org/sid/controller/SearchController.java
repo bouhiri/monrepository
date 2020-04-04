@@ -28,7 +28,7 @@ public class SearchController {
  	return "Liste des offres";}
  
 @RequestMapping("/offremotclé")
-public String ChercherParMotcle(Model model,@RequestParam("mot") String mot) {
+public String ChercherParMotcle(Model model,@RequestParam(value="mot")String mot) {
 	model.addAttribute("offres", serviceRecherche.listOffreParMot(mot));
 	
 	return "Liste des offres";

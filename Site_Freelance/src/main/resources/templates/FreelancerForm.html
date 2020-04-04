@@ -23,18 +23,21 @@
                 <h3 class="mb-0">Inscription Freelancer</h3>
             </div>
             <div class="card-body">
-	  <form action="#" th:action="@{/inscriptiondufreelancer}" th:object="${freelancerForm}"method="post"> 
+	 <form class="form" role="form" action="#" autocomplete="off" id="loginForm" 
+				th:action="@{/freelancerinscription}" th:object="${freelancerForm}" 
+					 method="POST">
 						<div class="form-group">
                         <label for="inputName">Nom</label>
-                        <input type="text"  class="form-control" id="inputNom" th:field="*{nom}" />
+                        <input type="text"  class="form-control" id="inputNom" th:field="*{nom}" required="required"/>
                     </div>	
                     <div class="form-group">
                         <label for="inputPrenom">Prenom</label>
-                        <input type="text" class="form-control" id="inputPrenom" th:field="*{prenom}"/>
+                        <input type="text" class="form-control" id="inputPrenom" th:field="*{prenom}" required="required"/>
                     </div>
 					<div class="form-group">
                         <label for="inputEmail3">Email</label>
-                        <input type="email" class="form-control" id="inputEmail3" th:field="*{mobile}"required="required"/>
+                        <input type="email" class="form-control" id="inputEmail3" th:field="*{email}"required="required"/>
+                        <span  class="form-text small text-muted" th:if="${message1}"> merci d'entre une adresse email valid </span>
                     </div>
                     <div class="form-group">
                         <label for="inputphone">Numero de telephone</label>
@@ -61,31 +64,33 @@
 					</div>
 					<div class="form-group">
                         <label for="inputQuartier">Quartier</label>
-                        <input type="text" class="form-control" id="inputQuartier" th:field="*{Quartier}" required="required"/>
+                        <input type="text" class="form-control" id="inputQuartier" th:field="*{quartier}" required="required"/>
                     </div>
 
 					<div class="form-group">
                         <label for="exampleMessage">Experience</label>
-                        <textarea class="form-control" id="exampleMessage"></textarea>
+                        <textarea class="form-control" id="exampleMessage" th:field="*{experience}" ></textarea>
                         <small class="text-info">Decrire vos experiences ici.</small>
                     </div>
                      <div class="form-group">
                         <label for="inputDiplomes">Diplomes</label>
-                        <textarea class="form-control" id="inputDiplomes"></textarea>
+                        <textarea class="form-control" id="inputDiplomes" th:field="*{diplome}"></textarea>
                         <small class="text-info">Decrire vos Diplomes ici.</small> 
                     </div>
-                    <div class="form-group">
-                        <label for="inputPassword3">Password</label>
-                        <input type="password" class="form-control" id="inputPassword3" th:field="*{password}" required="required"/>
+                   <div class="form-group">
+                        <label for="inputPassword3">Mot de passe</label>
+                        <input type="password" class="form-control" id="password" th:field="*{password}" required="required"/>
                     </div>
 					<div class="form-group">
-                        <label for="inputVerify3">Verify</label>
-                        <input type="password" class="form-control" id="inputVerify3" th:field="*{repassword}" required="required"/>
-                    </div>
+                        <label for="inputVerify3">Confirmer votre mot de passe</label>
+                        <input type="password" class="form-control" id="password" th:field="*{repassword}" required="required"/>
+                        </div>
+                   
 					<div>
 						<button type="submit" class="btn btn-primary">Register</button>
 					</div>
 				</form>
+				<a th:href="profilFreelancer"></a>
 			</div>
 		</div>
 	</div>

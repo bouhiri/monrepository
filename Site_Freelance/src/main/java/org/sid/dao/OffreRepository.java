@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface OffreRepository extends JpaRepository<Offre, Integer> {
 
-	@Query("select o from Offre o where o.description like : z")
+	@Query("select o from Offre o where o.description =:z")
 	public List<Offre> listOffreParMot(@Param("z") String mot);
 }
+
