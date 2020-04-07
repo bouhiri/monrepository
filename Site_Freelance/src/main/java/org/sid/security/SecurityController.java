@@ -1,5 +1,6 @@
 package org.sid.security;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -65,4 +66,6 @@ public class SecurityController {
 	public String methode4(Model model) {
 		return "403";
 	}
+
+
 }

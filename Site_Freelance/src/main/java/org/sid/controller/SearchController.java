@@ -21,8 +21,20 @@ public class SearchController {
 	@RequestMapping(value = "/freelancerPage")
 	public String freelancerPage() {
 
-		return "freelancers";
-	}
+		return "freelancers";}
+ @RequestMapping("/offres")
+ public String ChercherOffre(Model model) {
+ 	model.addAttribute("offres",serviceRecherche.listAllOffre());
+ 	return "Liste des offres";}
+ 
+@RequestMapping("/offremotclé")
+public String ChercherParMotcle(Model model,@RequestParam("mot")String mot) {
+	model.addAttribute("offres", serviceRecherche.listOffreParMot(mot));
+	
+	return "Liste des offres";
+}
+ 
+ 
 
 	@RequestMapping(value = "/freelancerPageSerach")
 	public String freelancerPageSearch(Model model, @RequestParam("ville") String ville,
@@ -60,19 +72,8 @@ public class SearchController {
 		return "freelancers";
 	}
 
-	@RequestMapping("/offres")
-	public String ChercherOffre(Model model) {
-		model.addAttribute("offres", serviceRecherche.listAllOffre());
-		return "ListOffre";
-	}
-
-	@RequestMapping("/offremotclé")
-	public String ChercherParMotcle(Model model, @RequestParam("mot") String mot) {
-		model.addAttribute("chercherparmotcle", serviceRecherche.listOffreParMot(mot));
-
-		return "ListOffre";
+	
 	}
 	
 	
 
-}

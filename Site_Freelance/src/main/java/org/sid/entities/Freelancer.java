@@ -3,6 +3,7 @@ package org.sid.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -38,7 +39,9 @@ public class Freelancer implements java.io.Serializable {
 	@JoinTable(name = "FreelancerCompetances", joinColumns = @JoinColumn(name = "idFreelancer"),
 		inverseJoinColumns = @JoinColumn(name = "idCompetence"))
 	private Set<Competence> competences = new HashSet<Competence>();
+
 	@ManyToOne(fetch = FetchType.EAGER)
+
 	@JoinColumn(name = "idLocalisation")
 	private Localisation localisation;
 	public Set<Evaluation> getEvaluations() {
