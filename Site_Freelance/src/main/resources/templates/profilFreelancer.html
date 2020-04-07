@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <title>Bootstrap 4 Website Example</title>
 <meta charset="utf-8">
@@ -19,7 +20,7 @@
 	<div th:replace="template :: header"></div>
 	<section>
 		<div class="container" style="margin-top: 30px">
-			<nav class="navbar navbar-expand-sm" th:if="${!isParticulier}">
+			<nav class="navbar navbar-expand-sm" sec:authorize="hasRole('ROLE_FREELANCER')">
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbar-list-4" aria-controls="navbarNav"
 					aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +39,8 @@
 								aria-labelledby="navbarDropdownMenuLink">
 								<a class="dropdown-item"
 									th:href="@{/pageUpdateProfileFreelancer(id=${freelancer.idFreelancer})}">Modifier
-									Profile</a> <a class="dropdown-item" href="#">Deconnexion</a>
+									Profile</a> <a class="dropdown-item" href="/AAlogout_FreelancEr"
+									th:href="@{/AAlogout_Freelancer}">Deconnexion</a>
 							</div></li>
 					</ul>
 				</div>
@@ -55,18 +57,18 @@
 						th:if="${freelancer.competences != null}">
 						<li class="nav-item" th:each="cmp: ${freelancer.competences}">
 							<h5 th:text="${cmp.domaine}">Active</h5> <a
-							th:if="${!isParticulier}"
+							sec:authorize="hasRole('ROLE_FREELANCER')"
 							th:href="@{/deleteCompetance(idCompetence=${cmp.idCompetence},idFreelancer=${freelancer.idFreelancer})}">supprimer</a>
 						</li>
 					</ul>
-					<div th:if="${!isParticulier}">
+					<div sec:authorize="hasRole('ROLE_FREELANCER')">
 						<span class="anchor" id="formRegister"></span>
 						<hr class="mb-5">
 						<!-- form card register -->
 						<div class="card card-outline-secondary">
 							<div class="card-body">
 								<form class="form" role="form"
-									th:action="@{/addCompetance(id=${freelancer.idFreelancer})}"
+									th:action="@{/AAaddCompetance(id=${freelancer.idFreelancer})}"
 									action="#" autocomplete="off" method="post">
 									<div class="form-group">
 										<label for="exampleSt">Competances</label> <select
@@ -147,14 +149,14 @@
 							</div>
 						</div>
 					</div>
-					<div th:if="${isParticulier}">
+					<div sec:authorize="hasRole('ROLE_PARTICULIER')">
 						<span class="anchor" id="formRegister"></span>
 						<hr class="mb-5">
 						<!-- form card register -->
 						<div class="card card-outline-secondary">
 							<div class="card-body">
 								<form class="form" role="form"
-									th:action="@{/addAvis(id=${freelancer.idFreelancer})}"
+									th:action="@{/BBaddAvis(id=${freelancer.idFreelancer})}"
 									action="#" autocomplete="off" method="post">
 									<div class="form-group">
 										<label for="inputDiplomes">Votre Avis</label>
@@ -169,7 +171,7 @@
 								</form>
 
 								<form action="#" class="form" role="form"
-									th:action="@{/addNote(id=${freelancer.idFreelancer})}"
+									th:action="@{/BBaddNote(id=${freelancer.idFreelancer})}"
 									autocomplete="off" method="post">
 
 									<div class="form-group">

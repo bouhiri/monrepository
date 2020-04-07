@@ -25,7 +25,7 @@ public class AuthentificationController implements WebMvcConfigurer {
 		return "redirect:/freelancerinscription";
 	}
 
-	@RequestMapping("/freelancerinscription")
+	@RequestMapping("/AAfreelancerinscription")
 	public String inscriptiondufreelancer(Model model, @Valid FreelancerForm freelancerForm,
 			BindingResult bindingResult) {
 		Freelancer free = new Freelancer();
@@ -59,11 +59,14 @@ public class AuthentificationController implements WebMvcConfigurer {
 			Freelancer fr = serviceAutentification.inscriptiondufreelancer(free);
 
 			model.addAttribute("freelancer", fr);
-			model.addAttribute("isParticulier",false);
-			return "profilFreelancer";
+
+			return "AAProfilFreelancer";
+
 		}
-		}
-	@RequestMapping("/particulierinscription")
+	}
+
+	@RequestMapping("/BBparticulierinscription")
+
 	public String inscriptionduparticulier(Model model, @Valid ParticulierForm particulierForm,
 			BindingResult bindingResult) {
 		Particulier pr = new Particulier();
@@ -79,7 +82,7 @@ public class AuthentificationController implements WebMvcConfigurer {
 		 else if (!particulierForm.getPassword().equals(particulierForm.getRepassword())) {
 			msg = true;
 			model.addAttribute("messagecn", msg);
-			return "ParticulierForm";
+			return "BBParticulierForm";
 		} else {
 			pr.setNom(particulierForm.getNom());
 			pr.setPrenom(particulierForm.getPrenom());
@@ -91,7 +94,8 @@ public class AuthentificationController implements WebMvcConfigurer {
 			Particulier prc = serviceAutentification.inscriptionduparticulier(pr);
 
 			model.addAttribute("particulier", prc);
-			return "profilParticulier";
+       
+			return "BBProfilParticulier";
 
 		}
 	}

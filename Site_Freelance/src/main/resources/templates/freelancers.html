@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 <title>Freelancers</title>
@@ -85,7 +86,7 @@
 							</h4>
 							<p>I can Design a Dynamic web sites with new technologies,
 								new frameworks</p>
-							<a th:href="@{/seeProfile(id=${f[0].idFreelancer})}" class="btn btn-primary">See Profile</a> 
+							<a sec:authorize="isAuthenticated()" th:href="@{/BBseeProfile(id=${f[0].idFreelancer})}" class="btn btn-primary">See Profile</a> 
 							<span class="badge badge-success float-sm-right" th:text="${f[1]}"><h4>9.5</h4></span>
 						</div>
 					</div>
@@ -95,5 +96,4 @@
 	</section>
 	<div th:replace="template :: footer"></div>
 </body>
-
 </html>
