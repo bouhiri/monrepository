@@ -26,18 +26,19 @@ public class ProfilesController implements WebMvcConfigurer {
 	@Autowired
 	private ServiceRecherche serviceRecherche;
 
-	@RequestMapping("/seeProfile")
+	@RequestMapping("/BBseeProfile")
 	public String seeProfile(Model model, @RequestParam("id") Integer id) {
 		model.addAttribute("isParticulier", true);
 		model.addAttribute("freelancer", serviceRecherche.findFreelancerById(id));
 		return "profilFreelancer";
 	}
 
-	@RequestMapping(value = "/addAvis")
-	public String addAvis(Model model, @RequestParam("avis") String avis, @RequestParam("id") String id) {
+	@RequestMapping(value = "/BBaddAvis")
+	public String addAvis(Model model, @RequestParam("avis") String avis, @RequestParam("id") String id,HttpSession sesssion) {
 		Freelancer freelancer = serviceRecherche.findFreelancerById(Integer.parseInt(id));
 		Avis aviss = new Avis(avis);
-		serviceEvaluation.AjouterAvis(aviss, freelancer, null);
+		Particulier particulier = (Particulier) sesssion.getAttribute("particulier");
+		serviceEvaluation.AjouterAvis(aviss, freelancer, particulier);
 		model.addAttribute("isParticulier", true);
 		model.addAttribute("freelancer", freelancer);
 		return "profilFreelancer";
@@ -50,7 +51,7 @@ public class ProfilesController implements WebMvcConfigurer {
 		return "profilParticulier";
 	}
 
-	@RequestMapping("/deleteOffre")
+	@RequestMapping("/BBdeleteOffre")
 	public String deleteOffre(Model model, @RequestParam("idOffre") Integer id,
 			@RequestParam("idParticulier") Integer idParticulier) {
 		serviceRecherche.deleteOffreById(id);
@@ -59,7 +60,7 @@ public class ProfilesController implements WebMvcConfigurer {
 		return "profilParticulier";
 	}
 
-	@RequestMapping("/addOffre")
+	@RequestMapping("/BBaddOffre")
 	public String addOffre(Model model, @RequestParam("offre") String description, @RequestParam("id") Integer id) {
 		Offre offre = new Offre(description);
 		Particulier particulier = serviceRecherche.findParticulierById(id);
@@ -69,18 +70,25 @@ public class ProfilesController implements WebMvcConfigurer {
 		return "profilParticulier";
 	}
 
-	@RequestMapping("/pageUpdateProfileFreelancer")
-	public String updateProfileFreelancer(Model model, @RequestParam("id") Integer id, HttpSession sesssion) {
-		sesssion.setAttribute("freelancer", serviceRecherche.findFreelancerById(id));
+	@RequestMapping("/AApageUpdateProfileFreelancer")
+	public String pageUpdateProfileFreelancer(Model model, /*@RequestParam("id") Integer id,*/ HttpSession sesssion) {
+		//sesssion.setAttribute("freelancer", serviceRecherche.findFreelancerById(id));
 		model.addAttribute("freelancer", sesssion.getAttribute("freelancer"));
 		return "UpdateProfileFreelancer";
 	}
+	
+	@RequestMapping("/AAmyFreelancerProfilePage")
+	public String myFreelancerProfilePage(Model model, /*@RequestParam("id") Integer id,*/ HttpSession sesssion) {
+		model.addAttribute("isParticulier", false);
+		model.addAttribute("freelancer", sesssion.getAttribute("freelancer"));
+		return "profilFreelancer";
+	}
 
-	@RequestMapping("/updateProfileFreelancerSecurity")
+	@RequestMapping("/AAupdateProfileFreelancerSecurity")
 	public String updateProfileFreelancerSecurity(Model model, @RequestParam("expassword") String exPassword,
 			@RequestParam("password") String newPassword, @RequestParam("repassword") String newPasswordVerify,
 			HttpSession sesssion) {
-		String pageAfter = "profilFreelancer", currentPage = "UpdateProfileFreelancer";
+		String pageAfter = "UpdateProfileFreelancer", currentPage = "UpdateProfileFreelancer";
 		Freelancer freelancer = (Freelancer) sesssion.getAttribute("freelancer");
 		if (!freelancer.getPassword().equals(exPassword)) {
 			pageAfter = currentPage;
@@ -92,17 +100,17 @@ public class ProfilesController implements WebMvcConfigurer {
 			freelancer.setPassword(newPassword);
 			serviceRecherche.updateFreelancer(freelancer);
 		}
-
+		sesssion.setAttribute("freelancer", freelancer);
 		model.addAttribute("freelancer", freelancer);
 		model.addAttribute("isParticulier", false);
 		return pageAfter;
 	}
 
-	@RequestMapping("/updateProfileFreelancerProfessional")
+	@RequestMapping("/AAupdateProfileFreelancerProfessional")
 	public String updateProfileFreelancerProfessionalInformatio(Model model,
 			@RequestParam("experience") String experience, @RequestParam("diplome") String diplome,
 			HttpSession sesssion) {
-		String pageAfter = "profilFreelancer", currentPage = "UpdateProfileFreelancer";
+		String pageAfter = "UpdateProfileFreelancer", currentPage = "UpdateProfileFreelancer";
 		Freelancer freelancer = (Freelancer) sesssion.getAttribute("freelancer");
 		if (experience.length() == 0) {
 			pageAfter = currentPage;
@@ -113,26 +121,25 @@ public class ProfilesController implements WebMvcConfigurer {
 			freelancer.setDiplome(diplome);
 			serviceRecherche.updateFreelancer(freelancer);
 		}
+		sesssion.setAttribute("freelancer", freelancer);
 		model.addAttribute("freelancer", freelancer);
 		model.addAttribute("isParticulier", false);
 		return pageAfter;
 	}
 
-	@RequestMapping("/updateProfileFreelancerPersonnal")
+	@RequestMapping("/AAupdateProfileFreelancerPersonnal")
 	public String updateProfileFreelancerPersonnal(Model model, @RequestParam("nom") String nom,
 			@RequestParam("prenom") String prenom, @RequestParam("ville") String ville,
 			@RequestParam("mobile") Long mobile, @RequestParam("quartier") String quartier,
 			@RequestParam("email") String email, HttpSession sesssion) {
-		String pageAfter = "profilFreelancer", currentPage = "UpdateProfileFreelancer";
+		String pageAfter = "UpdateProfileFreelancer", currentPage = "UpdateProfileFreelancer";
 		Freelancer freelancer = (Freelancer) sesssion.getAttribute("freelancer");
 		if (!serviceRecherche.findFreelancerByEmail(email).getIdFreelancer().equals(freelancer.getIdFreelancer())
 				&& serviceRecherche.findFreelancerByEmail(email) != null) {
 			pageAfter = currentPage;
-			System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			// mail existante pour autre user
 		} else if (mobile.toString().length() != 10) {
 			pageAfter = currentPage;
-			System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBb");
 
 		} else {
 			freelancer.setNom(nom);
@@ -147,13 +154,15 @@ public class ProfilesController implements WebMvcConfigurer {
 			serviceRecherche.updateFreelancer(freelancer);
 
 		}
+		sesssion.setAttribute("freelancer", freelancer);
 		model.addAttribute("freelancer", freelancer);
 		model.addAttribute("isParticulier", false);
 		return pageAfter;
 	}
 
-	@RequestMapping("/addCompetance")
-	public String addCompetance(Model model, @RequestParam("id") Integer id, @RequestParam("domaine") String domaine) {
+	@RequestMapping("/AAaddCompetance")
+	public String addCompetance(Model model, @RequestParam("id") Integer id, @RequestParam("domaine") String domaine
+			,HttpSession sesssion) {
 		Competence competence = serviceRecherche.findCompetanceByDomaine(domaine);
 		Freelancer freelancer = serviceRecherche.findFreelancerById(id);
 		if (competence == null) {
@@ -163,51 +172,65 @@ public class ProfilesController implements WebMvcConfigurer {
 			Set<Competence> c = freelancer.getCompetences();
 			boolean compExist = false;
 			for (Competence competence2 : c) {
-				compExist = competence2.getDomaine().equals(domaine) ? true : compExist;
+				if( competence2.getDomaine().equals(domaine) ) {
+					compExist = true ;
+					break;
+				}
 			}
 			if (!compExist) {
 				competence = new Competence(domaine);
 				serviceRecherche.addCompetance(competence, freelancer);
 			}
 		}
+		sesssion.setAttribute("freelancer", freelancer);
 		model.addAttribute("freelancer", freelancer);
 		model.addAttribute("isParticulier", false);
 		return "profilFreelancer";
 	}
 
-	@RequestMapping("/deleteCompetance")
+	@RequestMapping("/AAdeleteCompetance")
 	public String deleteCompetance(Model model, @RequestParam("idCompetence") Integer id,
-			@RequestParam("idFreelancer") Integer idFreelancer) {
+			@RequestParam("idFreelancer") Integer idFreelancer, HttpSession sesssion) {
 		Competence competence = serviceRecherche.findCompetanceById(id);
 		Freelancer freelancer = serviceRecherche.findFreelancerById(idFreelancer);
 		serviceRecherche.deleteCompetance(competence, freelancer);
+		sesssion.setAttribute("freelancer", freelancer);
 		model.addAttribute("freelancer", freelancer);
 		model.addAttribute("isParticulier", false);
 		return "profilFreelancer";
 	}
 	
+	@RequestMapping(value = "/BBaddNote")
+	public String addNote(Model model, @RequestParam("note") Integer note, @RequestParam("id") String id) {
+		Freelancer freelancer = serviceRecherche.findFreelancerById(Integer.parseInt(id));
+		if(note <= 10) {
+			serviceEvaluation.DonnerNote(freelancer, note.byteValue());
+		}
+		model.addAttribute("isParticulier", true);
+		model.addAttribute("freelancer", freelancer);
+		return "profilFreelancer";
+	}
 	
+	/***************************************************************************/
+	@RequestMapping("/BBmyParticulierProfilePage")
+	public String myParticulierProfilePage(Model model, /*@RequestParam("id") Integer id,*/ HttpSession sesssion) {
+		model.addAttribute("particulier", sesssion.getAttribute("particulier"));
+		return "profilParticulier";
+	}
 	
-	
-	
-	
-	
-
-	@RequestMapping("/pageUpdateProfileParticulier")
-	public String updateProfilePariculier(Model model, @RequestParam("id") Integer id, HttpSession sesssion) {
-		sesssion.setAttribute("particulier", serviceRecherche.findParticulierById(id));
+	@RequestMapping("/BBpageUpdateProfileParticulier")
+	public String pageUpdateProfileParticulier(Model model/*, @RequestParam("id") Integer id*/, HttpSession sesssion) {
+		//sesssion.setAttribute("particulier", serviceRecherche.findParticulierById(id));
 		model.addAttribute("particulier", sesssion.getAttribute("particulier"));
 		return "UpdateProfileParticulier";
 	}
 	
-	
-	
-	@RequestMapping("/updateProfileParticulierPersonnal")
+	@RequestMapping("/BBupdateProfileParticulierPersonnal")
 	public String updateProfileParticulierPersonnal(Model model, @RequestParam("nom") String nom,
 			@RequestParam("prenom") String prenom,
 			@RequestParam("mobile") Long mobile, @RequestParam("adresse") String adresse,
 			@RequestParam("email") String email, HttpSession sesssion) {
-		String pageAfter = "profilParticulier", currentPage = "UpdateProfileParticulier";
+		String pageAfter = "UpdateProfileParticulier", currentPage = "UpdateProfileParticulier";
 		Particulier particulier = (Particulier) sesssion.getAttribute("particulier");
 		if (!serviceRecherche.findParticulierByEmail(email).getIdParticulier().equals(particulier.getIdParticulier())
 				&& serviceRecherche.findFreelancerByEmail(email) != null) {
@@ -225,16 +248,17 @@ public class ProfilesController implements WebMvcConfigurer {
 			serviceRecherche.updateParticulier(particulier);
 
 		}
+		sesssion.setAttribute("particulier", particulier);
 		model.addAttribute("particulier", particulier);
-		model.addAttribute("isParticulier", false);
+		model.addAttribute("isParticulier", true);
 		return pageAfter;
 	}
 	
-	@RequestMapping("/updateProfileParticulierSecurity")
+	@RequestMapping("/BBupdateProfileParticulierSecurity")
 	public String updateProfileParticulierSecurity(Model model, @RequestParam("expassword") String exPassword,
 			@RequestParam("password") String newPassword, @RequestParam("repassword") String newPasswordVerify,
 			HttpSession sesssion) {
-		String pageAfter = "profilFreelancer", currentPage = "UpdateProfileParticulier";
+		String pageAfter = "UpdateProfileParticulier", currentPage = "UpdateProfileParticulier";
 		Particulier particulier = (Particulier) sesssion.getAttribute("particulier");
 		if (!particulier.getPassword().equals(exPassword)) {
 			pageAfter = currentPage;
@@ -246,33 +270,10 @@ public class ProfilesController implements WebMvcConfigurer {
 			particulier.setPassword(newPassword);
 			serviceRecherche.updateParticulier(particulier);
 		}
-
+		sesssion.setAttribute("particulier", particulier);
 		model.addAttribute("particulier", particulier);
-		model.addAttribute("isParticulier", false);
+		model.addAttribute("isParticulier", true);
 		return pageAfter;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping(value = "/addNote")
-	public String addAvis(Model model, @RequestParam("note") Integer note, @RequestParam("id") String id) {
-		Freelancer freelancer = serviceRecherche.findFreelancerById(Integer.parseInt(id));
-		if(note <= 10) {
-			serviceEvaluation.DonnerNote(freelancer, note.byteValue());
-		}
-		model.addAttribute("isParticulier", true);
-		model.addAttribute("freelancer", freelancer);
-		return "profilFreelancer";
-	}
-	
-	
-	
-	
 	
 }

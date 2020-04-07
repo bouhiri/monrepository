@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
@@ -23,17 +24,19 @@
 				<h3 class="mb-0">Login</h3>
 			</div>
 			<div class="card-body">
-				<form class="form" role="form" action="#" autocomplete="off" id="loginForm" 
-				th:action="@{/connexionFreelancer}" th:object="${login}" 
+			<!-- <form class="form" role="form" action="/AAconnexionFreelancer" autocomplete="off" id="loginForm" 
+				th:action="@{/AAconnexionFreelancer}" th:object="${login}"  -->
+				<form class="form" role="form" action="/AAloginFreelancer" autocomplete="off" id="loginForm" 
+				th:action="@{/AAloginFreelancer}" 
 					 method="POST">
 					<div class="form-group">
                         <label for="uname1">Email</label>
-                        <input type="text" class="form-control" th:field="*{mail}"  id="uname1" required="required"/>
+                        <input type="text" class="form-control" name="username"   id="uname1" required="required"/>
 						<span  class="form-text small text-muted" th:if="${messageValid}"> merci d'entre une adresse email valid </span>                   
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" class="form-control" th:field="*{password}"  id="pwd1" required="required" autocomplete="new-password"/>
+                        <input type="password" class="form-control" name="password"  id="pwd1" required="required" autocomplete="new-password"/>
 						<span  class="form-text small text-muted" th:if="${messageValid}"> merci de sesaire un password </span>                   
                     </div>
                     <button type="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Connexion</button>

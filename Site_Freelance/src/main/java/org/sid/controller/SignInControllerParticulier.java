@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import net.bytebuddy.utility.RandomString;
@@ -35,20 +34,14 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 
 	/*********************** HOME PAGE ************************/
 
-	@RequestMapping(value = "/loginParticulier")
+	@RequestMapping(value = "/BBloginParticulier")
 	public String loginParticulier(Model model) {
 		model.addAttribute("message", false);
 		model.addAttribute("login", new Login());
 		return "loginParticulier";
 	}
-
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/results").setViewName("results");
-	}
-
-	@RequestMapping(value = "/connexionParticulier")
-	public String connexion(@Valid Login login, BindingResult bindingResult, Model model) {
+	/*@RequestMapping(value = "/connexionParticulier")
+	public String connexion(@Valid Login login, BindingResult bindingResult, Model model,HttpSession session) {
 		String pageAfter = "profilParticulier";
 		boolean message = false;
 		if (bindingResult.hasErrors()) {
@@ -63,12 +56,13 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 				model.addAttribute("messageForm", message);
 				pageAfter = "loginParticulier";
 			} else {
+				session.setAttribute("particulier", particulier);
 				model.addAttribute("isParticulier", true);
 				model.addAttribute("particulier", particulier);
 			}
 		}
 		return pageAfter;
-	}
+	}*/
 
 	@RequestMapping(value = "/forgotPasswordParticulierPage")
 	public String forgot() {
@@ -91,7 +85,7 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 		return pageAfter;
 	}
 
-	@RequestMapping(value = "/resetPasswordParticulierToPrfile")
+	@RequestMapping(value = "/resetPasswordParticulierToProfile")
 	public String restPassword(Model model, @RequestParam String password, @RequestParam String password2,
 			@RequestParam String validationCode, HttpSession session) {
 		String pageAfter = "profilParticulier", currentPage = "resetPasswordParticulier";
@@ -104,6 +98,9 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 		} else {
 			particulier.setPassword(password);
 			serviceRecherche.updateParticulier(particulier);
+			model.addAttribute("isParticulier", true);
+			session.setAttribute("particulier", particulier);
+			model.addAttribute("particulier", particulier);
 		}
 		return pageAfter;
 	}

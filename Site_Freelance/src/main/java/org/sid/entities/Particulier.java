@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,11 +23,11 @@ public class Particulier implements java.io.Serializable {
 	private Long mobile;
 	private String password;
 	private String adresse;
-	@OneToMany(targetEntity = Avis.class, mappedBy = "particulier")
+	@OneToMany(targetEntity = Avis.class, mappedBy = "particulier",fetch = FetchType.EAGER)
 	private Set<Avis> avis = new HashSet<Avis>();
-	@OneToMany(targetEntity = Evaluation.class, mappedBy = "particulier")
+	@OneToMany(targetEntity = Evaluation.class, mappedBy = "particulier", fetch = FetchType.EAGER)
 	private Set<Evaluation> evaluations = new HashSet<Evaluation>();
-	@OneToMany(targetEntity = Offre.class, mappedBy = "particulier")
+	@OneToMany(targetEntity = Offre.class, mappedBy = "particulier",fetch = FetchType.EAGER)
 	private Set<Offre> offres = new HashSet<Offre>();
 	
 	public Particulier(String nom, String prenom, String email, Long mobile, String password, String adresse) {
