@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+ xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
 <head>
     <title>Inscription Freelancer</title>
     <meta charset="utf-8">
@@ -20,6 +22,7 @@
         <!-- form card register -->
         <div class="card card-outline-secondary">
             <div class="card-header">
+            <div sec:authorize ="hasRole('ROLE_FREELANCER')">
                 <h3 class="mb-0">Inscription Freelancer</h3>
             </div>
             <div class="card-body">
@@ -91,6 +94,7 @@
 					</div>
 				</form>
 				<a th:href="profilFreelancer"></a>
+			</div>
 			</div>
 		</div>
 	</div>
