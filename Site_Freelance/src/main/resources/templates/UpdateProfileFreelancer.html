@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
@@ -34,6 +35,7 @@
 						</a>
 							<div class="dropdown-menu"
 								aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" th:href="@{/AAmyFreelancerProfilePage}">Profile</a>
 								<a class="dropdown-item" href="#">Modifier Profile</a> <a
 									class="dropdown-item" href="#">Deconnexion</a>
 							</div></li>
@@ -61,7 +63,7 @@
 								<div class="card-body">
 
 									<form class="form" role="form"
-										th:action="@{/updateProfileFreelancerPersonnal(id=${freelancer.idFreelancer})}"
+										th:action="@{/AAupdateProfileFreelancerPersonnal(id=${freelancer.idFreelancer})}"
 										action="#" autocomplete="off" method="post">
 										<div class="form-group">
 											<label for="inputName">Nom</label> <input type="text"
@@ -132,7 +134,7 @@
 							<div class="card card-outline-secondary">
 								<div class="card-body">
 									<form class="form" role="form"
-										th:action="@{/updateProfileFreelancerProfessional(id=${freelancer.idFreelancer})}"
+										th:action="@{/AAupdateProfileFreelancerProfessional(id=${freelancer.idFreelancer})}"
 										action="#" autocomplete="off" method="post">
 										<div class="form-group">
 											<label for="inputDiplomes">Diplome</label>
@@ -165,7 +167,7 @@
 							<div class="card card-outline-secondary">
 								<div class="card-body">
 									<form class="form" role="form"
-										th:action="@{/updateProfileFreelancerSecurity}"
+										th:action="@{/AAupdateProfileFreelancerSecurity}"
 										action="#" autocomplete="off" method="post">
 
 										<div class="form-group">

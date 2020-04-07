@@ -1,5 +1,6 @@
 package org.sid.entities;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,9 +17,9 @@ public class Avis implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idAvis;
 	private String description;
-    @ManyToOne @JoinColumn(name="idFreelancer")
+    @ManyToOne(fetch = FetchType.EAGER) @JoinColumn(name="idFreelancer")
 	private Freelancer freelancer;
-    @ManyToOne @JoinColumn(name="idParticulier")
+    @ManyToOne(fetch = FetchType.EAGER) @JoinColumn(name="idParticulier")
 	private Particulier particulier;
 	
 	public Avis(String description, Freelancer freelancer, Particulier particulier) {

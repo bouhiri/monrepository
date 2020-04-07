@@ -34,6 +34,7 @@
 						</a>
 							<div class="dropdown-menu"
 								aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" th:href="@{/BBmyParticulierProfilePage}">Profile</a>
 								<a class="dropdown-item" href="#">Modifier Profile</a> <a
 									class="dropdown-item" href="#">Deconnexion</a>
 							</div></li>
@@ -58,7 +59,7 @@
 								<div class="card-body">
 
 									<form class="form" role="form"
-										th:action="@{/updateProfileParticulierPersonnal(id=${particulier.idParticulier})}"
+										th:action="@{/BBupdateProfileParticulierPersonnal(id=${particulier.idParticulier})}"
 										action="#" autocomplete="off" method="post">
 										<div class="form-group">
 											<label for="inputName">Nom</label> <input type="text"
@@ -103,7 +104,7 @@
 							<div class="card card-outline-secondary">
 								<div class="card-body">
 									<form class="form" role="form"
-										th:action="@{/updateProfileParticulierSecurity}" action="#"
+										th:action="@{/BBupdateProfileParticulierSecurity}" action="#"
 										autocomplete="off" method="post">
 
 										<div class="form-group">

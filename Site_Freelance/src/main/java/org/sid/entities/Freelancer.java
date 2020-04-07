@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,15 +31,17 @@ public class Freelancer implements java.io.Serializable {
 	private String password;
 	private String diplome;
 	private String experience;
-	@OneToMany(targetEntity = Avis.class, mappedBy = "freelancer")
+	@OneToMany(targetEntity = Avis.class, mappedBy = "freelancer", fetch = FetchType.EAGER)
 	private Set<Avis> avis = new HashSet<Avis>();
 	@OneToMany(targetEntity = Evaluation.class, mappedBy = "freelancer")
 	private Set<Evaluation> evaluations = new HashSet<Evaluation>();
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "FreelancerCompetances", joinColumns = @JoinColumn(name = "idFreelancer"),
 		inverseJoinColumns = @JoinColumn(name = "idCompetence"))
 	private Set<Competence> competences = new HashSet<Competence>();
-	@ManyToOne (cascade = CascadeType.ALL)
+
+	@ManyToOne(fetch = FetchType.EAGER)
+
 	@JoinColumn(name = "idLocalisation")
 	private Localisation localisation;
 	public Set<Evaluation> getEvaluations() {
