@@ -23,6 +23,7 @@ public class Particulier implements java.io.Serializable {
 	private Long mobile;
 	private String password;
 	private String adresse;
+	private String presentation;
 	@OneToMany(targetEntity = Avis.class, mappedBy = "particulier",fetch = FetchType.EAGER)
 	private Set<Avis> avis = new HashSet<Avis>();
 	@OneToMany(targetEntity = Evaluation.class, mappedBy = "particulier", fetch = FetchType.EAGER)
@@ -81,6 +82,13 @@ public class Particulier implements java.io.Serializable {
 	}
 	public Long getMobile() {
 		return mobile;
+	}
+	
+	public String getPresentation() {
+		return presentation;
+	}
+	public void setPresentation(String presentation) {
+		this.presentation = presentation;
 	}
 	public void setMobile(Long mobile) {
 		this.mobile = mobile;

@@ -31,6 +31,8 @@ public class Freelancer implements java.io.Serializable {
 	private String password;
 	private String diplome;
 	private String experience;
+	private String domaine;
+	private String presentation;
 	@OneToMany(targetEntity = Avis.class, mappedBy = "freelancer", fetch = FetchType.EAGER)
 	private Set<Avis> avis = new HashSet<Avis>();
 	@OneToMany(targetEntity = Evaluation.class, mappedBy = "freelancer")
@@ -40,7 +42,7 @@ public class Freelancer implements java.io.Serializable {
 		inverseJoinColumns = @JoinColumn(name = "idCompetence"))
 	private Set<Competence> competences = new HashSet<Competence>();
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.ALL} ,fetch = FetchType.EAGER)
 
 	@JoinColumn(name = "idLocalisation")
 	private Localisation localisation;
@@ -101,7 +103,20 @@ public class Freelancer implements java.io.Serializable {
 	public Long getMobile() {
 		return mobile;
 	}
+	
 
+	public String getDomaine() {
+		return domaine;
+	}
+	public void setDomaine(String domaine) {
+		this.domaine = domaine;
+	}
+	public String getPresentation() {
+		return presentation;
+	}
+	public void setPresentation(String presentation) {
+		this.presentation = presentation;
+	}
 	public void setMobile(Long mobile) {
 		this.mobile = mobile;
 	}

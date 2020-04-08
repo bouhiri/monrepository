@@ -2,7 +2,7 @@
 <html xmlns:th="https://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-<title>Bootstrap 4 Website Example</title>
+<title>Profil Freelancer</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -111,15 +111,20 @@
 						<div class="media border p-3 w-75">
 							<div class="media-body">
 								<h4>
-									Tele : <small><i th:text="${freelancer.mobile}"></i></small>
+								 Numero de telephone : <small><i th:text="${freelancer.mobile}"></i></small>
 								</h4>
 								<h4>
-									Email : <small><i th:text="${freelancer.email}"></i></small>
+								Email : <small><i th:text="${freelancer.email}"></i></small>
 								</h4>
 								<h4>
-									Tele : <small><i
+								Ville : <small><i
 										th:text="${freelancer.localisation.ville}"></i></small>
 								</h4>
+								<h4>
+								Quartier : <small><i
+										th:text="${freelancer.localisation.quartier}"></i></small>
+								</h4>
+ 								
 							</div>
 						</div>
 					</div>
@@ -131,6 +136,10 @@
 								<p th:text="${freelancer.experience}"></p>
 								<h4>Diplomes :</h4>
 								<p th:text="${freelancer.diplome}"></p>
+								<h4>Domaine :</h4>
+								<p th:text="${freelancer.domaine}"></p>
+								<h4>A propos de moi :</h4>
+								<p th:text="${freelancer.presentation}"></p>
 							</div>
 						</div>
 					</div>

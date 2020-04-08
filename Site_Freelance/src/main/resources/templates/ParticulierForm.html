@@ -42,7 +42,10 @@
                         <label for="inputphone">Numero de telephone</label>
                         <input type="number" class="form-control" id="inputphone" th:field="*{mobile}"required="required"/>
                     </div>
-                    
+                    <div class="form-group">
+                        <label for="exampleMessage">A propos de vous</label>
+                        <textarea class="form-control" id="exampleMessage" th:field="*{presentation}" ></textarea>
+                    </div>
                     
                     <div class="form-group">
                         <label for="inputAdresse">Adresse</label>

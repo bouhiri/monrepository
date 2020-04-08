@@ -40,6 +40,11 @@ public class FreelancerForm {
 	@NotNull
 	private String quartier;
 	
+	@NotNull
+	private String domaine;
+	@NotNull
+	 private String presentation;
+	
 	public String getNom() {
 		return nom;	
 	
@@ -105,6 +110,25 @@ public class FreelancerForm {
 	public void setExperience(String experience) {
 		this.experience = experience;
 	}
+	public String getDomaine() {
+		return domaine;
+	}
+
+	public void setDomaine(String domaine) {
+		this.domaine = domaine;
+	}
+
+	public String getPresentation() {
+		return presentation;
+	}
+
+	public void setPresentation(String presentation) {
+		this.presentation = presentation;
+	}
+	
+	
+	
+	
 	@Override
 	public String toString() {
 		return "FreelancerForm [nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", mobile=" + mobile
