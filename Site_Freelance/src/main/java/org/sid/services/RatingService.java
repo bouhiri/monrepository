@@ -16,4 +16,6 @@ public interface RatingService {
 	public Double RecalculateAverage(Freelancer freelancer);
 	
 	public void deleteRatingById(Integer id);
+
+
 }

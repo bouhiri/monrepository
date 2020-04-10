@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../static/styles.css"
+	th:href="@{/styles.css}">
+
+</head>
+<style>
+.text-purple {
+	color: var(- -purple);
+}
+
+.sticky-top {
+	transition: padding 0.2s ease;
+}
+
+.stuck .sticky-top {
+	padding-top: 15px;
+}
+</style>
+<script>
+    (new IntersectionObserver(function(e,o){
+    if (e[0].intersectionRatio > 0){
+        document.documentElement.removeAttribute('class');
+    } else {
+        document.documentElement.setAttribute('class','stuck');
+    };
+})).observe(document.querySelector('.position-absolute'));
+    </script>
+
+<body>
+	<div layout:fragment="aside">
+		<div class="col-md-2 bg-light py-3 px-1">
+			<div class="sticky-top">
+				<ul class="nav pb-3 flex-md-column justify-content-center p-3">
+					<li class="nav-item text-truncate"><a
+						class="nav-link text-purple d-md-inline d-none" href="#">Top
+							on mobile ↓</a></li>
+					<li class="nav-item text-truncate"><a
+						class="nav-link text-purple" href="#">Link 1</a></li>
+					<li class="nav-item text-truncate"><a
+						class="nav-link text-purple" href="#">Link 9</a></li>
+					<li class="nav-item"><a class="nav-link text-purple" href="#">Link
+							10</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div layout:fragment="asideR">
+		<div class="col-sm-3 py-3">
+			<div class="row sticky-top">
+				<div class="col-12">
+					<h6>Woo-hoo!</h6>
+					<p>Got my arm stuck in a vending machine! Vice sustainable
+						cardigan, Williamsburg master cleanse hella.</p>
+				</div>
+				<div class="col-lg-6">
+					<div class="card card-body mb-4">Put some content here.</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="card card-body mb-4">Maybe ads or links.</div>
+				</div>
+				<div class="col-12">
+					<p>3 wolf moon retro jean shorts chambray sustainable roof
+						party. Shoreditch vegan artisan Helvetica. Tattooed Codeply Echo
+						Helvetica Williamsburg sartorial tote bag distillery Portland
+						before they sold out gastropub taxidermy Vice.</p>
+				</div>
+				<div class="col-lg-6">
+					<div class="card card-body mb-4">Put some content here.</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="card card-body mb-4">Maybe ads or links.</div>
+				</div>
+				<div class="col-12">
+					<hr>
+					<div class="card card-body mb-4">Master crafter foo-bar choo.</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+
+</html>

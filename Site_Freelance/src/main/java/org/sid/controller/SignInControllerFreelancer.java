@@ -88,7 +88,7 @@ public class SignInControllerFreelancer implements WebMvcConfigurer {
 	@RequestMapping(value = "/resetPasswordFreelancerToPrfile")
 	public String restPassword(Model model, @RequestParam String password, @RequestParam String password2,
 			@RequestParam String validationCode, HttpSession session) {
-		String pageAfter = "profilFreelancer", currentPage = "resetPasswordFreelancer";
+		String pageAfter = "redirect:/AAloginFreelancer", currentPage = "resetPasswordFreelancer";
 		String validationInput = (String) session.getAttribute("validationCode");
 		Freelancer freelancer = (Freelancer) session.getAttribute("freelancer");
 		if (!password.equals(password2)) {
@@ -97,10 +97,12 @@ public class SignInControllerFreelancer implements WebMvcConfigurer {
 			pageAfter = currentPage;
 		} else {
 			freelancer.setPassword(password);
+
 			researchService.updateFreelancer(freelancer);
 			session.setAttribute("freelancer", freelancer);
 			SecurityContextHolder cntx = (SecurityContextHolder) session.getAttribute("SPRING_SECURITY_CONTEXT_HOLDER");
 			 
+
 			model.addAttribute("freelancer", freelancer);
 		}
 

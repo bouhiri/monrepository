@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Controller
-public class AuthentificationController implements WebMvcConfigurer {
+public class AuthenticationController implements WebMvcConfigurer {
 	@Autowired
 	private AuthenticationService authenticationService;
 
@@ -67,9 +67,12 @@ public class AuthentificationController implements WebMvcConfigurer {
 
 			model.addAttribute("freelancer", fr);
 
-			return "ProfilFreelancer";
+			
+
+			return "redirect:/AAloginFreelancer";//"AAProfilFreelancer";
 
 		}
+			
 	}
 
 	@RequestMapping("/particulierinscription")
@@ -103,8 +106,15 @@ public class AuthentificationController implements WebMvcConfigurer {
 					
 			model.addAttribute("particulier", prc);
 
-			return "ProfilParticulier";
+		
+
+
+			return"redirect:/BBloginParticulier";//"BBProfilParticulier";
+
+
+		
 
 		}
 	}
-}
+		
+	}

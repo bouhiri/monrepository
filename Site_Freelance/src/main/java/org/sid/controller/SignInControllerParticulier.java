@@ -88,7 +88,7 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 	@RequestMapping(value = "/resetPasswordParticulierToProfile")
 	public String restPassword(Model model, @RequestParam String password, @RequestParam String password2,
 			@RequestParam String validationCode, HttpSession session) {
-		String pageAfter = "profilParticulier", currentPage = "resetPasswordParticulier";
+		String pageAfter = "redirect:/BBloginParticulier", currentPage = "resetPasswordParticulier";
 		String validationInput = (String) session.getAttribute("validationCode");
 		Particulier particulier = (Particulier) session.getAttribute("particulier");
 		if (!password.equals(password2)) {
