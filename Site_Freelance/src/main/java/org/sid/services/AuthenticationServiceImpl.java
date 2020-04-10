@@ -4,7 +4,8 @@ import java.util.Optional;
 
 
 import org.sid.dao.FreelancerRepository;
-import org.sid.dao.ParticulierRepository;
+import org.sid.dao.ParticularRepository;
+
 import org.sid.entities.Freelancer;
 import org.sid.entities.Particulier;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
-public class ServiceAutentificationImpl  implements ServiceAutentification{
+public class AuthenticationServiceImpl  implements AuthenticationService{
 	@Autowired
 	FreelancerRepository freelancerRepository;
 	@Autowired
-	ParticulierRepository particulierRepository;
+	ParticularRepository particulierRepository;
 	@Override
-	public Particulier AuthentificationParticulier(String email, String password) {
+	public Particulier AuthenticationOfParticular(String email, String password) {
 		Optional<Particulier> particulierOptional = particulierRepository.findByEmail(email);
 		Particulier particulier = null;
 		if(particulierOptional.isPresent()) {
@@ -31,7 +32,7 @@ public class ServiceAutentificationImpl  implements ServiceAutentification{
 		return particulier;
 	}
 	@Override
-	public Freelancer AuthentificationFreelancer(String email, String password) {
+	public Freelancer AuthenticationOfFreelancer(String email, String password) {
 		Optional<Freelancer> freelancerOptional = freelancerRepository.findByEmail(email);
 		Freelancer freelancer = null ;
 		if(freelancerOptional.isPresent()) {
@@ -43,12 +44,12 @@ public class ServiceAutentificationImpl  implements ServiceAutentification{
 		return freelancer;
 	}
 	@Override
-	public Freelancer inscriptiondufreelancer(Freelancer free) {
+	public Freelancer FreelancerRegistration(Freelancer free) {
 		return freelancerRepository.save(free);
 		
 	}
 	@Override
-	public Particulier inscriptionduparticulier(Particulier pr) {
+	public Particulier ParticularRegistration(Particulier pr) {
 		
 		return particulierRepository.save(pr);
 	}

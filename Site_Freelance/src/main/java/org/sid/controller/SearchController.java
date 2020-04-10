@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.sid.entities.Freelancer;
-import org.sid.services.ServiceRecherche;
+import org.sid.services.ResearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,20 +16,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class SearchController {
 	@Autowired
-	private ServiceRecherche serviceRecherche;
+	private ResearchService researchService;
 
 	@RequestMapping(value = "/freelancerPage")
 	public String freelancerPage() {
 
 		return "freelancers";}
  @RequestMapping("/offres")
- public String ChercherOffre(Model model) {
- 	model.addAttribute("offres",serviceRecherche.listAllOffre());
+ public String SearchOffer(Model model) {
+ 	model.addAttribute("offres",researchService.OffersList());
  	return "Liste des offres";}
  
 @RequestMapping("/offremotclé")
-public String ChercherParMotcle(Model model,@RequestParam("mot")String mot) {
-	model.addAttribute("offres", serviceRecherche.listOffreParMot(mot));
+public String ChercherParMotcle(Model model,@RequestParam("word")String word) {
+	model.addAttribute("offres",researchService.OfferslistByKeyword(word));
 	
 	return "Liste des offres";
 }
@@ -41,15 +41,16 @@ public String ChercherParMotcle(Model model,@RequestParam("mot")String mot) {
 			@RequestParam("competance") String competance) {
 		Set<Freelancer> freelancers;
 		if (ville.equals("tout") && competance.equals("tout")) {
-			freelancers = serviceRecherche.listAllFreelancers();
+			freelancers = researchService.listAllFreelancers();
 		} else if (ville.equals("tout")) {
-			freelancers = serviceRecherche.chercherParCompetences(competance);
+			freelancers = researchService.SearchBySkills(competance);
+					
 
 		} else if (competance.equals("tout")) {
-			freelancers = serviceRecherche.chercherParLocalisation(ville);
+			freelancers = researchService.SearchByLocation(ville);
 
 		} else {
-			freelancers = serviceRecherche.chercherParLocalisationCompetance(ville, competance);
+			freelancers = researchService.SearchBySkillsAndLocation(ville, competance);
 
 		}
 		List<Freelancer> f = new ArrayList<Freelancer>();

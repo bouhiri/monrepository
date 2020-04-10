@@ -8,9 +8,9 @@ import javax.validation.Valid;
 
 import org.sid.entities.Freelancer;
 import org.sid.forms.Login;
+import org.sid.services.AuthenticationService;
 import org.sid.services.EmailService;
-import org.sid.services.ServiceAutentification;
-import org.sid.services.ServiceRecherche;
+import org.sid.services.ResearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,9 +29,9 @@ public class SignInControllerFreelancer implements WebMvcConfigurer {
 	@Autowired
 	private EmailService emailService;
 	@Autowired
-	private ServiceAutentification serviceAutentification;
+	private AuthenticationService authenticationService;
 	@Autowired
-	private ServiceRecherche serviceRecherche;
+	private  ResearchService researchService;
 
 	@RequestMapping(value = "/AAloginFreelancer")
 	public String loginFreelancer(Model model) {
@@ -72,7 +72,7 @@ public class SignInControllerFreelancer implements WebMvcConfigurer {
 	@RequestMapping(value = "/resetPasswordFreelancer")
 	public String forgotPasswordFreelancer(Model model, @RequestParam("email") String email, HttpSession session) {
 		String pageAfter, validationCode = RandomString.make(5);
-		Freelancer freelancer = serviceRecherche.findFreelancerByEmail(email);
+		Freelancer freelancer = researchService.findFreelancerByEmail(email);
 		if (freelancer != null) {
 			emailService.resetPasswordMail(freelancer, validationCode);
 			session.setAttribute("validationCode", validationCode);
@@ -97,7 +97,7 @@ public class SignInControllerFreelancer implements WebMvcConfigurer {
 			pageAfter = currentPage;
 		} else {
 			freelancer.setPassword(password);
-			serviceRecherche.updateFreelancer(freelancer);
+			researchService.updateFreelancer(freelancer);
 			session.setAttribute("freelancer", freelancer);
 			SecurityContextHolder cntx = (SecurityContextHolder) session.getAttribute("SPRING_SECURITY_CONTEXT_HOLDER");
 			 

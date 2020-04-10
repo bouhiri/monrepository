@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface OffreRepository extends JpaRepository<Offre, Integer> {
+public interface OfferRepository extends JpaRepository<Offre, Integer> {
 
 	@Query("select o from Offre o where o.description =:xyz")
-	public List<Offre> listOffreParMot(@Param("xyz") String mot);
+	public List<Offre> OfferslistByKeyword(@Param("xyz") String word);
 }
 

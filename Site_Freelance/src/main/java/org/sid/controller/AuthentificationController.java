@@ -7,7 +7,8 @@ import org.sid.entities.Localisation;
 import org.sid.entities.Particulier;
 import org.sid.forms.FreelancerForm;
 import org.sid.forms.ParticulierForm;
-import org.sid.services.ServiceAutentification;
+import org.sid.services.AuthenticationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Controller
 public class AuthentificationController implements WebMvcConfigurer {
 	@Autowired
-	private ServiceAutentification serviceAutentification;
+	private AuthenticationService authenticationService;
 
 	@RequestMapping("/inscription")
 	public String Inscription(Model model) {
@@ -27,7 +28,7 @@ public class AuthentificationController implements WebMvcConfigurer {
 	}
 
 	@RequestMapping("/freelancerinscription")
-	public String inscriptiondufreelancer(Model model, @Valid FreelancerForm freelancerForm,
+	public String FreelancerRegistration(Model model, @Valid FreelancerForm freelancerForm,
 			BindingResult bindingResult) {
 		Freelancer free = new Freelancer();
 		boolean msg = false;
@@ -61,7 +62,8 @@ public class AuthentificationController implements WebMvcConfigurer {
 			lc.setQuartier(freelancerForm.getQuartier());
 			free.setLocalisation(lc);
 
-			Freelancer fr = serviceAutentification.inscriptiondufreelancer(free);
+			Freelancer fr = authenticationService.FreelancerRegistration(free);
+					
 
 			model.addAttribute("freelancer", fr);
 
@@ -72,7 +74,7 @@ public class AuthentificationController implements WebMvcConfigurer {
 
 	@RequestMapping("/particulierinscription")
 
-	public String inscriptionduparticulier(Model model, @Valid ParticulierForm particulierForm,
+	public String ParticularRegistration(Model model, @Valid ParticulierForm particulierForm,
 			BindingResult bindingResult) {
 		Particulier pr = new Particulier();
 		boolean msg = false;
@@ -97,8 +99,8 @@ public class AuthentificationController implements WebMvcConfigurer {
 			pr.setAdresse(particulierForm.getAdresse());
 			pr.setPresentation(particulierForm.getPresentation());
 
-			Particulier prc = serviceAutentification.inscriptionduparticulier(pr);
-
+			Particulier prc = authenticationService.ParticularRegistration(pr);
+					
 			model.addAttribute("particulier", prc);
 
 			return "ProfilParticulier";

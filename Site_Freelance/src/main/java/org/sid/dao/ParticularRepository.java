@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.sid.entities.Particulier;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ParticulierRepository extends JpaRepository<Particulier, Integer> {
+public interface ParticularRepository extends JpaRepository<Particulier, Integer> {
 
 	Optional<Particulier> findByEmail(String email);
 

@@ -5,9 +5,9 @@ import javax.validation.Valid;
 
 import org.sid.entities.Particulier;
 import org.sid.forms.Login;
+import org.sid.services.AuthenticationService;
 import org.sid.services.EmailService;
-import org.sid.services.ServiceAutentification;
-import org.sid.services.ServiceRecherche;
+import org.sid.services.ResearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +23,9 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 	@Autowired
 	private EmailService emailService;
 	@Autowired
-	private ServiceAutentification serviceAutentification;
+	private AuthenticationService authenticationService;
 	@Autowired
-	private ServiceRecherche serviceRecherche;
+	private  ResearchService researchService;
 
 	@RequestMapping(value = "/")
 	public String toHome(Model model) {
@@ -72,7 +72,7 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 	@RequestMapping(value = "/resetPasswordParticulier")
 	public String forgotPasswordParticulier(Model model, @RequestParam("email") String email, HttpSession session) {
 		String pageAfter, validationCode = RandomString.make(5);
-		Particulier particulier = serviceRecherche.findParticulierByEmail(email);
+		Particulier particulier = researchService.findParticularByEmail(email);
 		if (particulier != null) {
 			emailService.resetPasswordMail(particulier, validationCode);
 			session.setAttribute("validationCode", validationCode);
@@ -97,7 +97,7 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 			pageAfter = currentPage;
 		} else {
 			particulier.setPassword(password);
-			serviceRecherche.updateParticulier(particulier);
+			researchService.updateParticular(particulier);
 			model.addAttribute("isParticulier", true);
 			session.setAttribute("particulier", particulier);
 			model.addAttribute("particulier", particulier);

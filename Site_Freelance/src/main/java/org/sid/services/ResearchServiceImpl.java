@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import org.sid.dao.CompetancesRepository;
+
 import org.sid.dao.FreelancerRepository;
-import org.sid.dao.LocalisationRepository;
-import org.sid.dao.OffreRepository;
-import org.sid.dao.ParticulierRepository;
+
+import org.sid.dao.LocationRepository;
+import org.sid.dao.OfferRepository;
+
+import org.sid.dao.ParticularRepository;
+import org.sid.dao.SkillsRepository;
 import org.sid.entities.Competence;
 import org.sid.entities.Freelancer;
 import org.sid.entities.Localisation;
@@ -22,21 +25,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("serviceRecherche")
 @Transactional
-public class ServiceRechercheImpl implements ServiceRecherche {
+public class ResearchServiceImpl implements ResearchService {
 	@Autowired
-	private CompetancesRepository CompetencesRepository;
+	private SkillsRepository skillsRepository;
 	@Autowired
-	private LocalisationRepository LocalisationRepository;
+	private LocationRepository locationRepository;
 	@Autowired
-	private OffreRepository offreRepository;
+	private OfferRepository offerRepository;
 	@Autowired
 	private FreelancerRepository freelancerRepository;
 	@Autowired
-	private ParticulierRepository particulierRepository;
+	private ParticularRepository particularRepository;
 
 	@Override
-	public Set<Freelancer> chercherParCompetences(String domaine) {
-		Optional<Competence> freelancers = CompetencesRepository.findByDomaine(domaine);
+	public Set<Freelancer> SearchBySkills(String domaine) {
+		Optional<Competence> freelancers = skillsRepository.findByDomain(domaine);
 		if (freelancers.isPresent())
 			return freelancers.get().getFreelancers();
 		else
@@ -45,8 +48,8 @@ public class ServiceRechercheImpl implements ServiceRecherche {
 
 	@Override
 
-	public Set<Freelancer> chercherParLocalisation(String ville) {
-		Optional<Localisation> freelancers = LocalisationRepository.findByVille(ville);
+	public Set<Freelancer> SearchByLocation(String ville) {
+		Optional<Localisation> freelancers = locationRepository.findByCity(ville);
 		if (freelancers.isPresent())
 			return freelancers.get().getFreelancers();
 		else
@@ -55,19 +58,19 @@ public class ServiceRechercheImpl implements ServiceRecherche {
 	}
 
 	@Override
-	public List<Offre> listAllOffre() {
-		return offreRepository.findAll();
+	public List<Offre> OffersList() {
+		return offerRepository.findAll();
 	}
 
 	@Override
-	public List<Offre> listOffreParMot(String mot) {
-		return offreRepository.listOffreParMot("%" + mot + "%");
+	public List<Offre> OfferslistByKeyword(String word) {
+		return offerRepository.OfferslistByKeyword("%" + word + "%");
 	}
 
 	@Override
-	public Set<Freelancer> chercherParLocalisationCompetance(String ville, String domaine) {
-		Set<Freelancer> freelancerParCompetance = chercherParCompetences(domaine);
-		Set<Freelancer> freelancerParLocalisation = chercherParLocalisation(ville);
+	public Set<Freelancer> SearchBySkillsAndLocation(String ville, String domaine) {
+		Set<Freelancer> freelancerParCompetance = SearchBySkills(domaine);
+		Set<Freelancer> freelancerParLocalisation = SearchByLocation(ville);
 
 		Set<Freelancer> outPut = new HashSet<Freelancer>();
 		if (freelancerParCompetance != null) {
@@ -110,23 +113,23 @@ public class ServiceRechercheImpl implements ServiceRecherche {
 
 	@Override
 	public Particulier findParticulierById(Integer id) {
-		Optional<Particulier> particulierOptional = particulierRepository.findById(id);
+		Optional<Particulier> particulierOptional = particularRepository.findById(id);
 		return particulierOptional.isPresent() ? particulierOptional.get() : null;
 	}
 
 	@Override
-	public void addOffre(Offre offre, Particulier particulier) {
+	public void addOffer(Offre offre, Particulier particulier) {
 		Set<Offre> offres = particulier.getOffres();
 		offres.add(offre);
 		offre.setParticulier(particulier);
 		particulier.setOffres(offres);
-		offreRepository.save(offre);
-		particulierRepository.save(particulier);
+		offerRepository.save(offre);
+		particularRepository.save(particulier);
 	}
 
 	@Override
-	public void deleteOffreById(Integer id) {
-		offreRepository.deleteById(id);
+	public void deleteOfferById(Integer id) {
+		offerRepository.deleteById(id);
 	}
 
 	@Override
@@ -136,13 +139,13 @@ public class ServiceRechercheImpl implements ServiceRecherche {
 	}
 
 	@Override
-	public Particulier findParticulierByEmail(String email) {
-		Optional<Particulier> particulierOptional = particulierRepository.findByEmail(email);
+	public Particulier findParticularByEmail(String email) {
+		Optional<Particulier> particulierOptional = particularRepository.findByEmail(email);
 		return particulierOptional.isPresent() ? particulierOptional.get() : null;
 	}
 
-	public void updateParticulier(Particulier particulier) {
-		particulierRepository.save(particulier);
+	public void updateParticular(Particulier particulier) {
+		particularRepository.save(particulier);
 	}
 
 	public void updateFreelancer(Freelancer freelancer) {
@@ -150,18 +153,18 @@ public class ServiceRechercheImpl implements ServiceRecherche {
 	}
 
 	@Override
-	public void updateLocalisation(Localisation localisation) {
-		LocalisationRepository.save(localisation);
+	public void updateLocation(Localisation localisation) {
+		locationRepository.save(localisation);
 	}
 
 	@Override
-	public Competence findCompetanceByDomaine(String domaine) {
-		Optional<Competence> competanceOptional = CompetencesRepository.findByDomaine(domaine);
+	public Competence findSkillsByDomain(String domaine) {
+		Optional<Competence> competanceOptional = skillsRepository.findByDomain(domaine);
 		return competanceOptional.isPresent() ? competanceOptional.get() : null;
 	}
 
 	@Override
-	public void addCompetance(Competence competence, Freelancer freelancer) {
+	public void addSkills(Competence competence, Freelancer freelancer) {
 		Set<Freelancer> f = competence.getFreelancers();
 		Set<Competence> c = freelancer.getCompetences();
 		c.add(competence);
@@ -169,12 +172,12 @@ public class ServiceRechercheImpl implements ServiceRecherche {
 		freelancer.setCompetences(c);
 		// competence.setFreelancers(f);
 
-		CompetencesRepository.save(competence);
+		skillsRepository.save(competence);
 		freelancerRepository.save(freelancer);
 	}
 
 	@Override
-	public void deleteCompetance(Competence competence, Freelancer freelancer) {
+	public void deleteSkills(Competence competence, Freelancer freelancer) {
 		Set<Competence> competences =  freelancer.getCompetences();
 		competences.remove(competence);
 		freelancer.setCompetences(competences);
@@ -182,9 +185,12 @@ public class ServiceRechercheImpl implements ServiceRecherche {
 	}
 
 	@Override
-	public Competence findCompetanceById(Integer id) {
-		Optional<Competence> competanceOptional = CompetencesRepository.findById(id);
+	public Competence findSkillsById(Integer id) {
+		Optional<Competence> competanceOptional = skillsRepository.findById(id);
 		return competanceOptional.isPresent() ? competanceOptional.get() : null;
 	}
 
-}
+	
+	}
+
+
