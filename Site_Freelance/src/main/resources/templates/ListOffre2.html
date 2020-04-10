@@ -23,37 +23,35 @@
 		<span class="anchor" id="formRegister"></span>
 		<hr class="mb-5">
 		<!-- form card register -->
-		<div class="card card-outline-secondary">
 			<div class="card-header">
 				<h3 class="mb-0"></h3>
 			</div>
-			<div class="card-body">
-			    <div th:action="@{/offres}" th:object="${offres}">
-				<form th:action="@{/offremotclé}"
-						th:object="${offres}" th:method="get">
+			<div class="col-lg-8 offset-md-4">
+				<div th:action="@{/offres}">
+					<form th:action="@{/offremotclé}" th:method="get">
 						<div>
-							<label>entrer offre</label>
-							<input type="text" name="mot" />
+							<label>entrer offre</label> <input type="text" name="mot" />
 							<button type="submit" class="btn btn-primary">Chercher</button>
 						</div>
 					</form>
-					<th:block th:each="f: ${offres}">
+				</div>
+			</div>
+			<th:block th:each="f: ${offres}">
 				<div class="container mt-3">
 					<div class="media border p-3 w-75">
-							
 						<div class="media-body">
-							<h4 th:text="${f.description}"><i></i></h4>
-								 <a href="#"
-								class="btn btn-outline-primary">Message</a> <span
-								class="badge badge-success float-sm-right" th:text="${f}">
-		
-						</span>
+							<h4 th:text="${f.description}">
+								<i></i>
+							</h4>
+							<a href="#" class="btn btn-outline-primary">Message</a> <span
+								class="badge badge-success float-sm-right" th:text="${f.particulier.nom}">
+							</span>
+						</div>
+					</div>
 				</div>
-			</div>	
-			</div>
-			</div>
-		</div>
-	</div>
+			</th:block>
+
+		
 	</div>
 	<div th:replace="template :: footer"></div>
 </body>

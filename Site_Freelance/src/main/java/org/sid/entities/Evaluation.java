@@ -2,6 +2,7 @@ package org.sid.entities;
 // Generated 19 mars 2020 16:20:42 by Hibernate Tools 4.0.1.Final
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,10 +22,10 @@ public class Evaluation implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer idEvaluation;
 	private Byte noteEvaluation;
-	@ManyToOne
+	@ManyToOne( fetch = FetchType.EAGER)
 	@JoinColumn(name = "idParticulier", nullable = true)
 	private Particulier particulier;
-	@ManyToOne
+	@ManyToOne( fetch = FetchType.EAGER)
 	@JoinColumn(name = "idFreelancer", nullable = true)
 	private Freelancer freelancer;
 

@@ -3,7 +3,6 @@ package org.sid.entities;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,15 +32,13 @@ public class Freelancer implements java.io.Serializable {
 	private String experience;
 	@OneToMany(targetEntity = Avis.class, mappedBy = "freelancer", fetch = FetchType.EAGER)
 	private Set<Avis> avis = new HashSet<Avis>();
-	@OneToMany(targetEntity = Evaluation.class, mappedBy = "freelancer")
+	@OneToMany(targetEntity = Evaluation.class, mappedBy = "freelancer",fetch = FetchType.EAGER)
 	private Set<Evaluation> evaluations = new HashSet<Evaluation>();
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "FreelancerCompetances", joinColumns = @JoinColumn(name = "idFreelancer"),
 		inverseJoinColumns = @JoinColumn(name = "idCompetence"))
 	private Set<Competence> competences = new HashSet<Competence>();
-
 	@ManyToOne(fetch = FetchType.EAGER)
-
 	@JoinColumn(name = "idLocalisation")
 	private Localisation localisation;
 	public Set<Evaluation> getEvaluations() {

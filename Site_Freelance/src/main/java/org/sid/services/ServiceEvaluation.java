@@ -11,7 +11,7 @@ public interface ServiceEvaluation {
 	
 	public void deleteAvisById(Integer id);
 
-	public void DonnerNote(Freelancer freelancer, Byte note);
+	public void DonnerNote(Freelancer freelancer, Byte note, Particulier particulier);
 
 	public Double RecalculerMoyenne(Freelancer freelancer);
 	

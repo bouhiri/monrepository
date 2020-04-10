@@ -3,18 +3,18 @@ package org.sid.forms;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
+import javax.validation.constraints.Size;
 
 
 public class FreelancerForm {
 
 
 	@NotNull
-	//@Size(min=2, max=30)
+	@Size(min=2, max=30)
 	private String nom;
 	
 	@NotNull
-	//@Size(min=2, max=30)
+	@Size(min=2, max=30)
 	private String prenom;
 
 	@NotEmpty @Email
@@ -23,17 +23,17 @@ public class FreelancerForm {
 	@NotNull 
     private Long mobile;
 	
-	@NotNull //@Size(min=8)
+	@NotNull @Size(min=8)
     private String password;
 	
-	@NotNull //@Size(min=8)
+	@NotNull @Size(min=8)
     private String repassword;
 	
 	@NotNull
-	//@Size(max=150)
+	@Size(min=30, max=150)
 	private String diplome;
 	@NotNull
-	//@Size(max=150)
+	@Size(min=30, max=150)
 	private String experience;
 	@NotNull
 	private String ville;

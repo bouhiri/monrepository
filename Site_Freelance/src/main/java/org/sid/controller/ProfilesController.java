@@ -27,9 +27,19 @@ public class ProfilesController implements WebMvcConfigurer {
 	private ServiceRecherche serviceRecherche;
 
 	@RequestMapping("/BBseeProfile")
-	public String seeProfile(Model model, @RequestParam("id") Integer id) {
+	public String seeProfile(Model model, @RequestParam(name = "id", defaultValue = "-1" ) Integer id,HttpSession session) {
 		model.addAttribute("isParticulier", true);
-		model.addAttribute("freelancer", serviceRecherche.findFreelancerById(id));
+		Freelancer freelancer;
+		if(id == -1) {
+			freelancer = (Freelancer) session.getAttribute("freelancer");
+		} else { 
+			freelancer = serviceRecherche.findFreelancerById(id);
+		}
+		int note =  serviceEvaluation.RecalculerMoyenne(freelancer).intValue();
+		Particulier particulier = (Particulier) session.getAttribute("particulier");
+		model.addAttribute("particulier", particulier);
+		model.addAttribute("note", note);
+		model.addAttribute("freelancer", freelancer);
 		return "profilFreelancer";
 	}
 
@@ -80,7 +90,10 @@ public class ProfilesController implements WebMvcConfigurer {
 	@RequestMapping("/AAmyFreelancerProfilePage")
 	public String myFreelancerProfilePage(Model model, /*@RequestParam("id") Integer id,*/ HttpSession sesssion) {
 		model.addAttribute("isParticulier", false);
-		model.addAttribute("freelancer", sesssion.getAttribute("freelancer"));
+		Freelancer freelancer = (Freelancer) sesssion.getAttribute("freelancer");
+		int note =  serviceEvaluation.RecalculerMoyenne(freelancer).intValue();
+		model.addAttribute("note", note);
+		model.addAttribute("freelancer", freelancer);
 		return "profilFreelancer";
 	}
 
@@ -201,14 +214,16 @@ public class ProfilesController implements WebMvcConfigurer {
 	}
 	
 	@RequestMapping(value = "/BBaddNote")
-	public String addNote(Model model, @RequestParam("note") Integer note, @RequestParam("id") String id) {
+	public String addNote(Model model, @RequestParam("note") Integer note, @RequestParam("id") String id,
+			@RequestParam("idParticulier") String idParticulier, HttpSession session) {
 		Freelancer freelancer = serviceRecherche.findFreelancerById(Integer.parseInt(id));
+		Particulier particulier = serviceRecherche.findParticulierById(Integer.parseInt(idParticulier));
 		if(note <= 10) {
-			serviceEvaluation.DonnerNote(freelancer, note.byteValue());
+			serviceEvaluation.DonnerNote(freelancer, note.byteValue(),particulier);
 		}
 		model.addAttribute("isParticulier", true);
-		model.addAttribute("freelancer", freelancer);
-		return "profilFreelancer";
+		session.setAttribute("freelancer", freelancer);
+		return "redirect:/BBseeProfile";
 	}
 	
 	/***************************************************************************/
