@@ -25,15 +25,17 @@ public class AuthentificationController implements WebMvcConfigurer {
 			BindingResult bindingResult) {
 		Freelancer free = new Freelancer();
 		boolean msg = false;
-		if (bindingResult.hasErrors()) {
-			msg = true;
-			model.addAttribute("message1", msg);
+		
+		   if( freelancerForm.getPassword()==null)
 			return "FreelancerForm";
 		} else if (!freelancerForm.getPassword().equals(freelancerForm.getRepassword())) {
 			msg = true;
 			model.addAttribute("message2", msg);
+
 			return "FreelancerForm";
-		} else {
+		} 
+		 else {
+
 			free.setNom(freelancerForm.getNom());
 			free.setPrenom(freelancerForm.getPrenom());
 			free.setEmail(freelancerForm.getEmail());
@@ -54,6 +56,7 @@ public class AuthentificationController implements WebMvcConfigurer {
 	}
 
 	@RequestMapping("/BBparticulierinscription")
+
 	public String inscriptionduparticulier(Model model, @Valid ParticulierForm particulierForm,
 			BindingResult bindingResult) {
 		Particulier pr = new Particulier();
