@@ -20,21 +20,36 @@ public class AuthentificationController implements WebMvcConfigurer {
 	@Autowired
 	private ServiceAutentification serviceAutentification;
 
-	@RequestMapping("/AAfreelancerinscription")
+
+	@RequestMapping("/freelancerinscription")
 	public String inscriptiondufreelancer(Model model, @Valid FreelancerForm freelancerForm,
 			BindingResult bindingResult) {
 		Freelancer free = new Freelancer();
 		boolean msg = false;
+
 		
 		   if( freelancerForm.getPassword()==null)
 			return "FreelancerForm";
 		} else if (!freelancerForm.getPassword().equals(freelancerForm.getRepassword())) {
+
+		/*if (bindingResult.hasErrors()) {
+			msg = true;
+			model.addAttribute("message1", msg);
+
+			return "FreelancerForm";
+		}*/
+		if (freelancerForm.getPassword() == null)
+			return "FreelancerForm";
+		else if (!freelancerForm.getPassword().equals(freelancerForm.getRepassword())) {
+
 			msg = true;
 			model.addAttribute("message2", msg);
 
 			return "FreelancerForm";
-		} 
-		 else {
+
+		}
+
+		else {
 
 			free.setNom(freelancerForm.getNom());
 			free.setPrenom(freelancerForm.getPrenom());
@@ -43,6 +58,8 @@ public class AuthentificationController implements WebMvcConfigurer {
 			free.setExperience(freelancerForm.getExperience());
 			free.setDiplome(freelancerForm.getDiplome());
 			free.setPassword(freelancerForm.getPassword());
+			free.setDomaine(freelancerForm.getDomaine());
+			free.setPresentation(freelancerForm.getPresentation());
 			Localisation lc = new Localisation();
 			lc.setVille(freelancerForm.getVille());
 			lc.setQuartier(freelancerForm.getQuartier());
@@ -51,22 +68,37 @@ public class AuthentificationController implements WebMvcConfigurer {
 			Freelancer fr = serviceAutentification.inscriptiondufreelancer(free);
 
 			model.addAttribute("freelancer", fr);
+
 			return "redirect:/AAloginFreelancer";//"AAProfilFreelancer";
-		}
+
+
+			
 	}
 
-	@RequestMapping("/BBparticulierinscription")
+	@RequestMapping("/particulierinscription")
 
 	public String inscriptionduparticulier(Model model, @Valid ParticulierForm particulierForm,
 			BindingResult bindingResult) {
 		Particulier pr = new Particulier();
 		boolean msg = false;
+
 		if (bindingResult.hasErrors()) {
 			msg = true;
 			model.addAttribute("messagevl", msg);
 			return "ParticulierForm";
 
 		} else if (!particulierForm.getPassword().equals(particulierForm.getRepassword())) {
+
+		/*
+		 * if (bindingResult.hasErrors()) { msg = true; model.addAttribute("messagevl",
+		 * msg); return "ParticulierForm";
+		 */
+
+		if (particulierForm.getPassword() == null)
+			return "ParticulierForm";
+
+		else if (!particulierForm.getPassword().equals(particulierForm.getRepassword())) {
+
 			msg = true;
 			model.addAttribute("messagecn", msg);
 			return "ParticulierForm";
@@ -77,11 +109,16 @@ public class AuthentificationController implements WebMvcConfigurer {
 			pr.setMobile(particulierForm.getMobile());
 			pr.setPassword(particulierForm.getPassword());
 			pr.setAdresse(particulierForm.getAdresse());
+			pr.setPresentation(particulierForm.getPresentation());
 
 			Particulier prc = serviceAutentification.inscriptionduparticulier(pr);
 
 			model.addAttribute("particulier", prc);
+
 			return"redirect:/BBloginParticulier";//"BBProfilParticulier";
+
+
+		
 
 		}
 	}

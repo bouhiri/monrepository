@@ -3,7 +3,7 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
-<title>Bootstrap 4 Website Example</title>
+<title>Profil Particulier</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -63,7 +63,19 @@
 								<h4>
 									Email : <small><i th:text="${particulier.email}"></i></small>
 								</h4>
+								<h4>
+									Adresse : <small><i th:text="${particulier.adresse}"></i></small>
+								</h4>
 							</div>
+						</div>
+					</div>
+					<h5>Details</h5>
+					<div class="container mt-3">
+						<div class="media border p-3 w-75">
+							<div class="media-body">
+								<h4>A propos de moi :</h4>
+								<p th:text="${particulier.presentation}"></p>
+								</div>
 						</div>
 					</div>
 					<hr class="d-sm-none">

@@ -28,6 +28,8 @@ public class ParticulierForm {
 	
 	@NotNull
 	private String adresse;
+	@NotNull
+	private String presentation;
 
 	public String getNom() {
 		return nom;
@@ -43,6 +45,14 @@ public class ParticulierForm {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+
+	public String getPresentation() {
+		return presentation;
+	}
+
+	public void setPresentation(String presentation) {
+		this.presentation = presentation;
 	}
 
 	public String getEmail() {
