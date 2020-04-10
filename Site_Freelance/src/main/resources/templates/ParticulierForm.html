@@ -58,6 +58,8 @@
                     <div class="form-group">
                         <label for="inputVerify3">Confirmer mot de passe</label>
                         <input type="password" class="form-control" id="inputVerify3"  th:field="*{repassword}" required="required"/>
+                        <div class="text-danger" th:if="${messagecn}">  les mot de passes ne correspondent pas </div>
+                        
                     </div>
                     <div>
                         <button type="submit" class="btn btn-primary">Register</button>
