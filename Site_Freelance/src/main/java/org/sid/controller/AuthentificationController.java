@@ -20,17 +20,18 @@ public class AuthentificationController implements WebMvcConfigurer {
 	@Autowired
 	private ServiceAutentification serviceAutentification;
 
-	@RequestMapping("/inscription")
-	public String Inscription(Model model) {
-		model.addAttribute("freelancerForm", new FreelancerForm());
-		return "redirect:/freelancerinscription";
-	}
 
 	@RequestMapping("/freelancerinscription")
 	public String inscriptiondufreelancer(Model model, @Valid FreelancerForm freelancerForm,
 			BindingResult bindingResult) {
 		Freelancer free = new Freelancer();
 		boolean msg = false;
+
+		
+		   if( freelancerForm.getPassword()==null)
+			return "FreelancerForm";
+		} else if (!freelancerForm.getPassword().equals(freelancerForm.getRepassword())) {
+
 		/*if (bindingResult.hasErrors()) {
 			msg = true;
 			model.addAttribute("message1", msg);
@@ -40,13 +41,16 @@ public class AuthentificationController implements WebMvcConfigurer {
 		if (freelancerForm.getPassword() == null)
 			return "FreelancerForm";
 		else if (!freelancerForm.getPassword().equals(freelancerForm.getRepassword())) {
+
 			msg = true;
 			model.addAttribute("message2", msg);
 
 			return "FreelancerForm";
+
 		}
 
 		else {
+
 			free.setNom(freelancerForm.getNom());
 			free.setPrenom(freelancerForm.getPrenom());
 			free.setEmail(freelancerForm.getEmail());
@@ -65,9 +69,10 @@ public class AuthentificationController implements WebMvcConfigurer {
 
 			model.addAttribute("freelancer", fr);
 
-			return "ProfilFreelancer";
+			return "redirect:/AAloginFreelancer";//"AAProfilFreelancer";
 
-		}
+
+			
 	}
 
 	@RequestMapping("/particulierinscription")
@@ -76,6 +81,14 @@ public class AuthentificationController implements WebMvcConfigurer {
 			BindingResult bindingResult) {
 		Particulier pr = new Particulier();
 		boolean msg = false;
+
+		if (bindingResult.hasErrors()) {
+			msg = true;
+			model.addAttribute("messagevl", msg);
+			return "ParticulierForm";
+
+		} else if (!particulierForm.getPassword().equals(particulierForm.getRepassword())) {
+
 		/*
 		 * if (bindingResult.hasErrors()) { msg = true; model.addAttribute("messagevl",
 		 * msg); return "ParticulierForm";
@@ -85,6 +98,7 @@ public class AuthentificationController implements WebMvcConfigurer {
 			return "ParticulierForm";
 
 		else if (!particulierForm.getPassword().equals(particulierForm.getRepassword())) {
+
 			msg = true;
 			model.addAttribute("messagecn", msg);
 			return "ParticulierForm";
@@ -101,7 +115,10 @@ public class AuthentificationController implements WebMvcConfigurer {
 
 			model.addAttribute("particulier", prc);
 
-			return "ProfilParticulier";
+			return"redirect:/BBloginParticulier";//"BBProfilParticulier";
+
+
+		
 
 		}
 	}

@@ -48,10 +48,11 @@ public class ServiceEvaluationImpl implements ServiceEvaluation {
 	}
 
 	@Override
-	public void DonnerNote(Freelancer freelancer, Byte note) {
+	public void DonnerNote(Freelancer freelancer, Byte note, Particulier particulier) {
 		Evaluation evaluation = new Evaluation();
 		evaluation.setNoteEvaluation(note);
 		evaluation.setFreelancer(freelancer);
+		evaluation.setParticulier(particulier);
 		Set<Evaluation> evaluations = freelancer.getEvaluations();
 		evaluations.add(evaluation);
 		freelancer.setEvaluations(evaluations);

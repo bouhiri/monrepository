@@ -133,23 +133,14 @@
 									</h4>
 									<p>I can Design a Dynamic web sites with new technologies,
 										new frameworks</p>
-										<div sec:authorize="hasRole('ROLE_PARTICULIER')">
-										
-										</div>
-										<a th:href="@{/BBseeProfile(id=${f[0].idFreelancer})}"
-										class="btn btn-primary">See Profile</a>
-									 <span class="badge badge-success float-sm-right" th:text="${f[1]}"></span>
+									<a sec:authorize="isAuthenticated()"
+										th:href="@{/BBseeProfile(id=${f[0].idFreelancer})}"
+										class="btn btn-primary">See Profile</a> <span
+										class="badge badge-success float-sm-right" th:text="${f[1]}"><h4>9.5</h4></span>
 								</div>
 							</div>
 						</div>
 					</th:block>
-					<div class="container">
-					 <ul class="pagination">
-					   <li class="page-item" th:each="p,status:${pages}">
-					    <a  class="page-link" th:href="@{/getPageFreelancers(pg=${status.index})}" th:text="${status.index}"></a>
-					   </li>
-					 </ul>
-					</div>
 					<h4>The End.</h4>
 				</main>
 				<div class="col-sm-3 py-3">

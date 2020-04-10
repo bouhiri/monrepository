@@ -34,72 +34,37 @@
 }
 </style>
 <script>
-    (new IntersectionObserver(function(e,o){
-    if (e[0].intersectionRatio > 0){
-        document.documentElement.removeAttribute('class');
-    } else {
-        document.documentElement.setAttribute('class','stuck');
-    };
-})).observe(document.querySelector('.position-absolute'));
-    </script>
+	(new IntersectionObserver(function(e, o) {
+		if (e[0].intersectionRatio > 0) {
+			document.documentElement.removeAttribute('class');
+		} else {
+			document.documentElement.setAttribute('class', 'stuck');
+		}
+		;
+	})).observe(document.querySelector('.position-absolute'));
+</script>
 
 <body>
 	<div th:replace="template :: header"></div>
 
 	<section>
-		<div >
+		<div>
 			<div class="row">
 				<div class="col-12 bg-light py-5">
-					<div class="col-lg-8 offset-md-4">
-						<form class="form" role="form" autocomplete="off" action="#"
-							th:action="@{/freelancerPageSerach}" id="loginForm" method="get">
-							<div class="row">
-								<div class="col-lg-3 pb-3">
-									<label for="exampleSt">Ville</label> <select
-										class="form-control" id="exampleSt" name="ville">
-										<option>tout</option>
-										<option>Agadir</option>
-										<option>Casablanca</option>
-										<option>Eljadida</option>
-										<option>Fes</option>
-										<option>Kenitra</option>
-										<option>Marrakech</option>
-										<option>Mohammedia</option>
-										<option>Oujda</option>
-										<option>Rabat</option>
-										<option>Safi</option>
-										<option>Sale</option>
-										<option>Tanger</option>
-									</select>
+						<div  class="col-lg-8 offset-md-4">
+							<form th:action="@{/offremotclé}" th:method="get">
+								<div>
+									<label>entrer offre</label> <input type="text" name="mot" />
+									<button type="submit" class="btn btn-primary">Chercher</button>
 								</div>
-								<div class="col-lg-3 pb-3">
-									<label for="exampleSt">Competances</label> <select
-										class="form-control" id="exampleSt" name="competance">
-										<option>tout</option>
-										<option>Aide médico</option>
-										<option>Baby sitting et Employés à domicile</option>
-										<option>Beauté et bien être</option>
-										<option>brochures et flyers</option>
-										<option>Decoration et amenagement interieur</option>
-										<option>développeurs web</option>
-										<option>Electricité</option>
-										<option>enseignement et formation</option>
-										<option>Hygiène et sécurité</option>
-										<option>Jardinage et exterieur maison</option>
-										<option>Mécanique automobile et entretien de
-											véhicules</option>
-										<option>Peinture</option>
-										<option>Plomberie</option>
-										<option>Menuiserie aluminium</option>
-										<option>Rédaction et traduction</option>
-										<option>Traiteur et organisateurs de fêtes</option>
-									</select>
+							</form>
+							<form th:action="@{/offres}" th:method="get">
+								<div>
+									<button type="submit" class="btn btn-outline-primary">Tous Afficher</button>
 								</div>
-							</div>
-							<button type="submit" class="btn btn-outline-success"
-								id="btnLogin">Chercher</button>
-						</form>
-					</div>
+							</form>
+						</div>
+
 				</div>
 			</div>
 			<span class="position-absolute"> <!-- intersection trigger-->
@@ -107,7 +72,7 @@
 			<div class="row">
 				<div class="col-md-2 bg-light py-3 px-1">
 					<div class="sticky-top">
-						<ul class="nav pb-3 flex-md-column justify-content-center p-3" >
+						<ul class="nav pb-3 flex-md-column justify-content-center p-3">
 							<li class="nav-item text-truncate"><a
 								class="nav-link text-purple d-md-inline d-none" href="#">Top
 									on mobile ↓</a></li>
@@ -121,24 +86,16 @@
 					</div>
 				</div>
 				<main class="col py-3">
-					<th:block th:each="f: ${all}">
+					<th:block th:each="f: ${offres}">
 						<div class="container mt-3">
 							<div class="media border p-3 w-100">
 								<div class="media-body">
-									<h4 th:text="${f[0].nom}">
-										<small><i>Java Developper</i></small>
+									<h4 th:text="${f.description}">
+										<i></i>
 									</h4>
-									<h4>
-										TNAJI Khalid <small><i>Java Developper</i></small>
-									</h4>
-									<p>I can Design a Dynamic web sites with new technologies,
-										new frameworks</p>
-										<div sec:authorize="hasRole('ROLE_PARTICULIER')">
-										
-										</div>
-										<a th:href="@{/BBseeProfile(id=${f[0].idFreelancer})}"
-										class="btn btn-primary">See Profile</a>
-									 <span class="badge badge-success float-sm-right" th:text="${f[1]}"></span>
+									<a href="#" class="btn btn-outline-primary">Message</a> <span
+										class="badge badge-success float-sm-right"
+										th:text="${f.particulier.nom}"> </span>
 								</div>
 							</div>
 						</div>
@@ -146,7 +103,7 @@
 					<div class="container">
 					 <ul class="pagination">
 					   <li class="page-item" th:each="p,status:${pages}">
-					    <a  class="page-link" th:href="@{/getPageFreelancers(pg=${status.index})}" th:text="${status.index}"></a>
+					    <a  class="page-link" th:href="@{/getPage(pg=${status.index})}" th:text="${status.index}"></a>
 					   </li>
 					 </ul>
 					</div>
