@@ -6,6 +6,8 @@ import org.sid.entities.Competence;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SkillsRepository extends JpaRepository<Competence	, Integer>{
-	Optional<Competence>findByDomain(String domaine);
+
+	Optional<Competence>findByDomaine(String domaine);
+
 
 }

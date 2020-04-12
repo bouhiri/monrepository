@@ -1,23 +1,15 @@
 
 package org.sid.controller;
 
-import java.util.Collection;
-
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.sid.entities.Freelancer;
 import org.sid.forms.Login;
-import org.sid.services.AuthenticationService;
 import org.sid.services.EmailService;
 import org.sid.services.ResearchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -29,8 +21,6 @@ public class SignInControllerFreelancer implements WebMvcConfigurer {
 	@Autowired
 	private EmailService emailService;
 	@Autowired
-	private AuthenticationService authenticationService;
-	@Autowired
 	private  ResearchService researchService;
 
 	@RequestMapping(value = "/AAloginFreelancer")
@@ -39,31 +29,7 @@ public class SignInControllerFreelancer implements WebMvcConfigurer {
 		model.addAttribute("login", new Login());
 		return "loginFreelancer";
 	}
-/*
-	@RequestMapping(value = "/connexionFreelancer")
-	public String connexion(@Valid Login login, BindingResult bindingResult, Model model,HttpSession session) {
-		String pageAfter = "profilFreelancer";
-		boolean message = false;
-		if (bindingResult.hasErrors()) {
-			pageAfter = "loginFreelancer";
-			message = true;
-			model.addAttribute("messageValid", message);
-		} else {
-			Freelancer freelancer = serviceAutentification.AuthentificationFreelancer(login.getMail(),
-					login.getPassword());
-			if (freelancer == null) {
-				message = true;
-				model.addAttribute("messageForm", message);
-				pageAfter = "loginFreelancer";
-			} else {
-				session.setAttribute("freelancer", freelancer);
-				model.addAttribute("isParticulier", false);
-				model.addAttribute("freelancer", freelancer);
-			}
-		}
-		return pageAfter;
-	}
-*/
+	
 	@RequestMapping(value = "/forgotPasswordFreelancerPage")
 	public String forgotPasswordFreelancerPage() {
 		return "forgotPasswordFreelancer";
@@ -79,6 +45,7 @@ public class SignInControllerFreelancer implements WebMvcConfigurer {
 			session.setAttribute("freelancer", freelancer);
 			pageAfter = "resetPasswordFreelancer";
 		} else {
+			model.addAttribute("message_Mail", true);
 			pageAfter = "forgotPasswordFreelancer";
 		}
 
@@ -93,17 +60,17 @@ public class SignInControllerFreelancer implements WebMvcConfigurer {
 		Freelancer freelancer = (Freelancer) session.getAttribute("freelancer");
 		if (!password.equals(password2)) {
 			pageAfter = currentPage;
+			model.addAttribute("message_Reset", true);
 		} else if (!validationInput.equals(validationCode)) {
 			pageAfter = currentPage;
+			model.addAttribute("message_ValidationCode", true);
+
 		} else {
 			freelancer.setPassword(password);
-
 			researchService.updateFreelancer(freelancer);
-			session.setAttribute("freelancer", freelancer);
-			SecurityContextHolder cntx = (SecurityContextHolder) session.getAttribute("SPRING_SECURITY_CONTEXT_HOLDER");
-			 
-
+			session.setAttribute("freelancer", freelancer);			 
 			model.addAttribute("freelancer", freelancer);
+			session.setAttribute("toProfile", true);
 		}
 
 		return pageAfter;

@@ -1,26 +1,53 @@
-<!DOCTYPE HTML>
-<html xmlns:th="https://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="id" dir="ltr" xmlns:th="https:/www.thymeleaf.org"
+	xmlns:sec="http:/www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
 <head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
 
-    <title>Page 403</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="../static/styles.css"
+<!-- Title -->
+<title>Acces Refuse</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+	crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" href="../static/styles.css"
 	th:href="@{/styles.css}">
-
 </head>
-<body>
+
+<body class="bg-dark text-white py-5">
 	<div th:replace="template :: header"></div>
-	<div class="col-md-6 offset-md-3">
-<div class="panel-heading">Probleme d'autorisation</div>
-<div class="red">Vous n'avez pas le droit d'acceder a cette ressource</div>
-</div>
+
+	<div class="container py-5">
+		<div class="row">
+			<div class="col-md-2 text-center">
+				<p>
+					<i class="fa fa-exclamation-triangle fa-5x"></i><br />Status Code:
+					403
+				</p>
+			</div>
+			<div class="col-md-10">
+				<h3>OPPSSS!!!! Probleme d'autorisation</h3>
+				<p>
+					Vous n'etes pas autorizer a utilser cette resources<br />Merci de
+					retourner a la page précedante.
+				</p>
+				<a class="btn btn-danger" href="javascript:history.back()">Go
+					Back</a>
+			</div>
+		</div>
+	</div>
+
 
 	<div th:replace="template :: footer"></div>
 	
 </body>
+
 </html>

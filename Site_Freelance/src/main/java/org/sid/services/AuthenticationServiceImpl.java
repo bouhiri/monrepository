@@ -20,7 +20,10 @@ public class AuthenticationServiceImpl  implements AuthenticationService{
 	@Autowired
 	ParticularRepository particulierRepository;
 	@Override
-	public Particulier AuthenticationOfParticular(String email, String password) {
+
+
+	public Particulier authenticationOfParticular(String email, String password) {
+
 		Optional<Particulier> particulierOptional = particulierRepository.findByEmail(email);
 		Particulier particulier = null;
 		if(particulierOptional.isPresent()) {
@@ -32,7 +35,8 @@ public class AuthenticationServiceImpl  implements AuthenticationService{
 		return particulier;
 	}
 	@Override
-	public Freelancer AuthenticationOfFreelancer(String email, String password) {
+
+	public Freelancer authenticationOfFreelancer(String email, String password) {
 		Optional<Freelancer> freelancerOptional = freelancerRepository.findByEmail(email);
 		Freelancer freelancer = null ;
 		if(freelancerOptional.isPresent()) {
@@ -44,12 +48,14 @@ public class AuthenticationServiceImpl  implements AuthenticationService{
 		return freelancer;
 	}
 	@Override
-	public Freelancer FreelancerRegistration(Freelancer free) {
+
+	public Freelancer freelancerRegistration(Freelancer free) {
 		return freelancerRepository.save(free);
 		
 	}
 	@Override
-	public Particulier ParticularRegistration(Particulier pr) {
+
+	public Particulier particularRegistration(Particulier pr) {
 		
 		return particulierRepository.save(pr);
 	}

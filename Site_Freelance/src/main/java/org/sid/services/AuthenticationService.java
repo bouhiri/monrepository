@@ -5,11 +5,12 @@ import org.sid.entities.Particulier;
 
 public interface AuthenticationService {
 
-	
-	
-	public Particulier AuthenticationOfParticular(String email, String password);
+	public Particulier authenticationOfParticular(String email, String password);
 
-	public Freelancer AuthenticationOfFreelancer(String email, String password);
-	public Freelancer FreelancerRegistration(Freelancer free);
-	public Particulier ParticularRegistration(Particulier pr);
+	public Freelancer authenticationOfFreelancer(String email, String password);
+
+	public Freelancer freelancerRegistration(Freelancer free);
+
+	public Particulier particularRegistration(Particulier pr);
+
 }

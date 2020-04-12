@@ -28,7 +28,8 @@ public class RatingServiceImpl implements RatingService {
 	public ParticularRepository particulierRepository;
 
 	@Override
-	public void AddOpinion(Avis avis, Freelancer freelancer, Particulier particulier) {
+
+	public void addOpinion(Avis avis, Freelancer freelancer, Particulier particulier) {
 		Set<Avis> freelancerAvis = freelancer.getAvis();
 		freelancerAvis.add(avis);
 		freelancer.setAvis(freelancerAvis);
@@ -39,7 +40,8 @@ public class RatingServiceImpl implements RatingService {
 	}
 
 	@Override
-	public void AddOpinion(Avis avis, Particulier particulier) {
+
+	public void addOpinion(Avis avis, Particulier particulier) {
 		opinionRepository.save(avis);
 		Set<Avis> particulierAvis = particulier.getAvis();
 		particulierAvis.add(avis);
@@ -48,7 +50,8 @@ public class RatingServiceImpl implements RatingService {
 	}
 
 	@Override
-	public void GiveScore(Freelancer freelancer, Byte note) {
+
+	public void giveScore(Freelancer freelancer, Byte note, Particulier particulier) {
 		Evaluation evaluation = new Evaluation();
 		evaluation.setNoteEvaluation(note);
 		evaluation.setFreelancer(freelancer);
@@ -61,7 +64,8 @@ public class RatingServiceImpl implements RatingService {
 	}
 
 	@Override
-	public Double RecalculateAverage(Freelancer freelancer) {
+
+	public Double recalculateAverage(Freelancer freelancer) {
 		Set<Evaluation> evaluations = freelancer.getEvaluations();
 		double avrg = 0.0;
 		for (Evaluation evaluation : evaluations) {
@@ -82,6 +86,6 @@ public class RatingServiceImpl implements RatingService {
 
 	}
 
-	
 
+	
 }

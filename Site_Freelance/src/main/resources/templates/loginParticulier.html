@@ -1,54 +1,83 @@
-<!DOCTYPE HTML>
-<html xmlns:th="https://www.thymeleaf.org">
-<head>
-    <title>Connexion Particulier</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="../static/styles.css"
-	th:href="@{/styles.css}">
+<!DOCTYPE html>
+<html xmlns:th="https:/www.thymeleaf.org"
+	xmlns:sec="http:/www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
+<head>
+	<title>Connexion particulier</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/animate/animate.css}" href="../static/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/css-hamburgers/hamburgers.min.css}" href="../static/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/animsition/css/animsition.min.css}" href="../static/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/select2/select2.min.css}" href="../static/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/daterangepicker/daterangepicker.css}" href="../static/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/util.css}" href="../static/vendor/util.css">
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/main.css}" href="../static/vendor/main.css">
+	<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script th:src="@{/vendor/animsition/js/animsition.min.js}" src="../static/vendor/animsition/js/animsition.min.js"></script>
+	<script th:src="@{/vendor/select2/select2.min.js}" src="../static/vendor/select2/select2.min.js"></script>
+	<script th:src="@{/vendor/daterangepicker/moment.min.js}" src="../static/vendor/daterangepicker/moment.min.js"></script>
+	<script th:src="@{/vendor/daterangepicker/daterangepicker.js}" src="../static/vendor/daterangepicker/daterangepicker.js"></script>
+	<script th:src="@{/vendor/countdowntime/countdowntime.js}" src="../static/vendor/countdowntime/countdowntime.js"></script>
+	<script th:src="@{/vendor/main.js}" src="../static/vendor/main.js"></script>
+	<link rel="stylesheet" type="text/css" href="../static/styles.css"
+	th:href="@{/styles.css}">
+	
 </head>
 <body>
 	<div th:replace="template :: header"></div>
-
-	<div class="col-md-6 offset-md-3">
-		<span class="anchor" id="formLogin"></span>
-		<!-- form card login with validation feedback -->
-		<div class="card card-outline-secondary">
-			<div class="card-header">
-				<h3 class="mb-0">Login</h3>
-			</div>
-			<div class="card-body">
-				<form class="form" role="form" action="/BBloginParticulier" autocomplete="off" id="loginForm" 
-				th:action="@{/BBloginParticulier}" 
-					 method="POST">
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" role="form" action="/BBloginParticulier"
+					autocomplete="off" id="loginForm"
+					th:action="@{/BBloginParticulier}" method="POST">
+					<span th:if="${session.toProfile}">Connecter vous pour terminer l'operation!</span>
+				<span th:if="${session.freelancerConnected}">merci de se deconnecter d'abord de votre compte Freelancer!</span>
+					<span class="login100-form-title p-b-43"> se connecter comme un Particulier
+					</span>
+					
 					<div class="form-group">
-                        <label for="uname1">Email</label>
-                        <input type="text" class="form-control" name="username" id="uname1" required="required"/>
-						<span  class="form-text small text-muted" th:if="${messageValid}"> merci d'entre une adresse email valid </span>                   
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" class="form-control" name="password"  id="pwd1" required="required" autocomplete="new-password"/>
-						<span  class="form-text small text-muted" th:if="${messageValid}"> merci de sesaire un password </span>                   
-                    </div>
-                    <button type="submit" class="btn btn-success btn-lg float-right" id="btnLogin">Connexion</button>
-        			</form>
-        			<div >
-        			<div  th:if="${messageForm}">Mail or password incorrect</div>
-                    <a href="forgotPasswordParticulierPage" th:if="${messageForm}" > Mot de pass oublier ?</a>
-                    </div>
-			</div>
-			<!--/card-body-->
-		</div>
-		<!-- /form card login -->
+						<label for="uname1">Email</label> <input type="text"
+							class="form-control" name="username" id="uname1"
+							required="required" /> <span class="form-text small text-muted"
+							th:if="${messageValid}"> merci d'entre une adresse email
+							valid </span>
+					</div>
+					<div class="form-group">
+						<label>Mot de passe</label> <input type="password"
+							class="form-control" name="password" id="pwd1"
+							required="required" autocomplete="new-password" /> <span
+							class="form-text small text-muted" th:if="${messageValid}">
+							merci de sesaire un Mot de passe </span>
+					</div>
+					
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">s'identifier</button>
+					</div>
+					<div class="flex-sb-m w-full p-t-3 p-b-32">
+						<div>
+							<a href="forgotPasswordParticulierPage" class="txt1"> Mot de passe oublié ? </a>
+						</div>
+					</div>
+					<div class="text-center p-t-46 p-b-20" th:if="${messageForm}">Courriel ou mot de passe incorrect</div>
+					<div class="text-center p-t-46 p-b-20">
+						<a th:href="@{/particulierinscription}" class="btn btn-primary" th:if="${messageForm}">
+							S'inscrire 
+						 </a>
+					</div>
 
+				</form>
+
+				<div class="login100-more"
+					style="background-image: url('/images/bg-01.jpg');"></div>
+			</div>
+		</div>
 	</div>
-		<div th:replace="template :: footer"></div>
-	
+	<div th:replace="template :: footer"></div>
 </body>
 </html>

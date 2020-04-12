@@ -1,17 +1,14 @@
 package org.sid.controller;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.sid.entities.Particulier;
 import org.sid.forms.Login;
-import org.sid.services.AuthenticationService;
 import org.sid.services.EmailService;
 import org.sid.services.ResearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -23,8 +20,6 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 	@Autowired
 	private EmailService emailService;
 	@Autowired
-	private AuthenticationService authenticationService;
-	@Autowired
 	private  ResearchService researchService;
 
 	@RequestMapping(value = "/")
@@ -32,37 +27,12 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 		return "home";
 	}
 
-	/*********************** HOME PAGE ************************/
-
 	@RequestMapping(value = "/BBloginParticulier")
 	public String loginParticulier(Model model) {
 		model.addAttribute("message", false);
 		model.addAttribute("login", new Login());
 		return "loginParticulier";
 	}
-	/*@RequestMapping(value = "/connexionParticulier")
-	public String connexion(@Valid Login login, BindingResult bindingResult, Model model,HttpSession session) {
-		String pageAfter = "profilParticulier";
-		boolean message = false;
-		if (bindingResult.hasErrors()) {
-			pageAfter = "loginParticulier";
-			message = true;
-			model.addAttribute("messageValid", message);
-		} else {
-			Particulier particulier = serviceAutentification.AuthentificationParticulier(login.getMail(),
-					login.getPassword());
-			if (particulier == null) {
-				message = true;
-				model.addAttribute("messageForm", message);
-				pageAfter = "loginParticulier";
-			} else {
-				session.setAttribute("particulier", particulier);
-				model.addAttribute("isParticulier", true);
-				model.addAttribute("particulier", particulier);
-			}
-		}
-		return pageAfter;
-	}*/
 
 	@RequestMapping(value = "/forgotPasswordParticulierPage")
 	public String forgot() {
@@ -79,6 +49,7 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 			session.setAttribute("particulier", particulier);
 			pageAfter = "resetPasswordParticulier";
 		} else {
+			model.addAttribute("message_Mail", true);
 			pageAfter = "forgotPasswordParticulier";
 		}
 
@@ -93,14 +64,17 @@ public class SignInControllerParticulier implements WebMvcConfigurer {
 		Particulier particulier = (Particulier) session.getAttribute("particulier");
 		if (!password.equals(password2)) {
 			pageAfter = currentPage;
+			model.addAttribute("message_Reset", true);
 		} else if (!validationInput.equals(validationCode)) {
 			pageAfter = currentPage;
+			model.addAttribute("message_ValidationCode", true);
 		} else {
 			particulier.setPassword(password);
 			researchService.updateParticular(particulier);
 			model.addAttribute("isParticulier", true);
 			session.setAttribute("particulier", particulier);
 			model.addAttribute("particulier", particulier);
+			session.setAttribute("toProfile", true);
 		}
 		return pageAfter;
 	}

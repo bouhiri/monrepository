@@ -1,35 +1,444 @@
-<!DOCTYPE HTML>
-<html xmlns:th="https://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="template">
+<!DOCTYPE html>
+<html xmlns:th="https:/www.thymeleaf.org"
+	xmlns:sec="http:/www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <head>
-<title>home page</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Site des Freelancers </title>
+<link href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<link href="../static/css/animate.min.css" th:href="@{/css/animate.min.css}"
+	rel="stylesheet">
+<link href="../static/css/font-awesome.min.css"
+	th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+<link href="../static/css/lightbox.css" th:href="@{/css/lightbox.css}"
+	rel="stylesheet">
+<link href="../static/css/main.css" th:href="@{/css/main.css}"
+	rel="stylesheet">
+<link id="css-preset" href="../static/css/presets/preset1.css"
+	th:href="@{/css/presets/preset1.css}" rel="stylesheet">
+<link href="../static/css/responsive.css" th:href="@{/css/responsive.css}"
+	rel="stylesheet">
+<script type="text/javascript" src="../static/js/jquery.js"
+	th:src="@{/js/jquery.js}"></script>
+<script type="text/javascript" src="../static/js/bootstrap.min.js"
+	th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript"
+	src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="../static/js/jquery.inview.min.js"
+	th:src="@{/js/jquery.inview.min.js}"></script>
+<script type="text/javascript" src="../static/js/wow.min.js"
+	th:src="@{/js/wow.min.js}"></script>
+<script type="text/javascript" src="../static/js/mousescroll.js"
+	th:src="@{/js/mousescroll.js}"></script>
+<script type="text/javascript" src="../static/js/smoothscroll.js"
+	th:src="@{/js/smoothscroll.js}"></script>
+<script type="text/javascript" src="../static/js/jquery.countTo.js"
+	th:src="@{/js/jquery.countTo.js}"></script>
+<script type="text/javascript" src="../static/js/lightbox.min.js"
+	th:src="@{/js/lightbox.min.js}"></script>
+<script type="text/javascript" src="../static/js/main.js"
+	th:src="@{/js/main.js}"></script>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700'
+	rel='stylesheet' type='text/css'>
+<link rel="shortcut icon" href="../static/images/favicon.ico" th:href="@{/images/favicon.ico}">
 <link rel="stylesheet" type="text/css" href="../static/styles.css"
 	th:href="@{/styles.css}">
-
 </head>
+<!--/head-->
 
 <body>
-	<div th:replace="template :: header"></div>
-	 <div class="row" style="height:500px">
-           
-		<h1>HOME</h1>
-		<a href="AAloginFreelancer">Login Freelancer</a> <a
-			href="BBloginParticulier">Login Particulier</a>
+	<!--.preloader-->
+	<div class="preloader">
+		<i class="fa fa-circle-o-notch fa-spin"></i>
 	</div>
+	<!--/.preloader-->
+	<header id="home">
+		<div id="home-slider" class="carousel slide carousel-fade"
+			data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="item active"
+					style="background-image: url(/images/slider/1.jpg)">
+					<div class="caption">
+						<h1 class="animated fadeInLeftBig">
+							bienvenus à <span>notre site web dédiée aux Freelancers</span>
+						</h1>
+				<p class="animated fadeInRightBig">Trover un Freelancer - trouver un travail - Publier une offre de travail</p>
+						<a data-scroll class="btn btn-start animated fadeInUpBig"
+							href="#services">Commencez maintenant </a>
+					</div>
+				</div>
+				<div class="item"
+					style="background-image: url(/images/slider/2.jpg)">
+					<div class="caption">
+						<h1 class="animated fadeInLeftBig">
+							Say Hello to <span>Freelancers.ma</span>
+						</h1>
+				<p class="animated fadeInRightBig">Trover un Freelancer - trouver un travail - Publier une offre de travail</p>
+						<a data-scroll class="btn btn-start animated fadeInUpBig"
+							href="#services">Commencer maintenant</a>
+					</div>
+				</div>
+				<div class="item" style="background-image: url(/images/slider/3.jpg)">
+					<div class="caption">
+						<h1 class="animated fadeInLeftBig">Simple d'étulisation</h1>
+				<p class="animated fadeInRightBig">Trover un Freelancer - trouver un travail - Publier une offre de travail</p>
+						<a data-scroll class="btn btn-start animated fadeInUpBig"
+							href="#services">Commencer maintenant </a>
+					</div>
+				</div>
+			</div>
+			<a class="left-control" href="#home-slider" data-slide="prev"><i
+				class="fa fa-angle-left"></i></a> <a class="right-control"
+				href="#home-slider" data-slide="next"><i
+				class="fa fa-angle-right"></i></a> <a id="tohash" href="#services"><i
+				class="fa fa-angle-down"></i></a>
+
+		</div>
+		<!--/#home-slider-->
+		<div class="main-nav">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".navbar-collapse">
+						<span class="sr-only">Basculer la navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<!-- 					<a class="navbar-brand" href="index.html"> -->
+					<!-- 						<h1> -->
+					<!-- 							<img class="img-responsive" src="../static/images/logo.png" alt="logo"> -->
+					<!-- 						</h1> -->
+					<!-- 					</a> -->
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="scroll active"><a href="#home">Acceuil</a></li>
+						<li class="scroll"><a href="#services">Sérvices</a></li>
+						<li class="scroll"><a href="#about-us"> A propos de nous </a></li>
+						<li class="scroll"><a href="#portfolio">Portfolio</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!--/#main-nav-->
+	</header>
+	<!--/#home-->
+
+	<section id="services">
+		<div class="container">
+			<div class="heading wow fadeInUp" data-wow-duration="1000ms"
+				data-wow-delay="300ms">
+				<div class="row">
+					<div class="text-center col-sm-8 col-sm-offset-2">
+						<h2>Notre Services</h2>
+						<p>Nous offrons la possibilité de trouver des freelances ou de publier des offres d'emploi.</p>
+					</div>
+				</div>
+			</div>
+			<div class="text-center our-services">
+				<div class="row">
+					<div class="col-sm-6 wow fadeInDown" data-wow-duration="1000ms"
+						data-wow-delay="300ms" style="margin-bottom: 40px;">
+						<div class="service-info">
+							<h3 style="margin-bottom: 15px;">Freelancer</h3>
+							<p>Recherchez un Freelancer par compétences ou par localisation ou les deux</p>
+						</div>
+						<a th:href="@{/freelancerPage}" class="btn btn-lg btn-primary">Chercher</a>
+					</div>
+					<div class="col-sm-6 wow fadeInDown" data-wow-duration="1000ms"
+						data-wow-delay="300ms" style="margin-bottom: 40px;">
+						<div class="service-info">
+							<h3 style="margin-bottom: 15px;">Offers de travail</h3>
+							<p>Recherche d'offres par mots clés</p>
+						</div>
+						<a th:href="@{/offres}" class="btn btn-lg btn-primary">Chercher</a>
+					</div>
+					<div class="col-sm-6 wow fadeInDown" data-wow-duration="1000ms"
+						data-wow-delay="300ms">
+						<div class="service-info">
+							<h3 style="margin-bottom: 15px;">Devenir un Freelancer</h3>
+							<p>créer un profil et trouver des offres d'emploi</p>
+						</div>
+						<a th:href="@{/AAloginFreelancer}" class="btn btn-lg btn-primary" >Se connecter </a> <a th:href="@{/freelancerinscription}" style="margin-left: 10px;"
+							class="btn btn-lg btn-primary">S'inscrire</a>
+					</div>
+					<div class="col-sm-6 wow fadeInDown" data-wow-duration="1000ms"
+						data-wow-delay="300ms">
+						<div class="service-info">
+							<h3 style="margin-bottom: 15px;">devenir un Particulier</h3>
+							<p>créer un profil, trouver et évaluer des Freelancers ou publier des offres d'emploi</p>
+						</div>
+						<a th:href="@{/BBloginParticulier}" class="btn btn-lg btn-primary">Se connecter</a> <a th:href="@{/particulierinscription}" style="margin-left: 10px;"
+							class="btn btn-lg btn-primary">S'inscrire</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--/#services-->
+	<section id="about-us" class="parallax">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="about-info wow fadeInUp" data-wow-duration="1000ms"
+						data-wow-delay="300ms">
+						<h1>Qui sommes nous ?</h1>
+				<p><h3>Le bon choix pour chercher et entrrer en contacte avec les Meilleurs Freelancers pres de chez vous au Maroc. </h3>
+                        Nous sommes convaincus que Freelancer.ma constitue le choix le plus simple et le plus pratique pour tout vos recherche de Freelancer dans un seul but ,c'est de confier vos préstation a la meilleur perssonne, sois au niveau de competences,sécurité et disponibilité. Ce service permet à tout utilisateur au Maroc d'avoir une visibilité sur tout les freelancer dans sont entourage en fesons une simple rechercher et faire le choix entre plusieur Freelancers en toute sécurité.comme Freelancer.ma met en rapport les Freelancer et les Particulier du Maroc et offre une expérience utilisateur exceptionnelle.</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!--/#about-us-->
+
+	<section id="portfolio">
+		<div class="container">
+			<div class="row">
+				<div
+					class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp"
+					data-wow-duration="1000ms" data-wow-delay="300ms">
+					<h2>Our Portfolio</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+						sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+						ut enim ad minim veniam</p>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="folio-item wow fadeInRightBig"
+						data-wow-duration="1000ms" data-wow-delay="300ms">
+						<div class="folio-image">
+							<img class="img-responsive"
+								src="/images/portfolio/1.jpg" alt="">
+						</div>
+						<div class="overlay">
+							<div class="overlay-content">
+								<div class="overlay-text">
+									<div class="folio-info">
+										<h3>Time Hours</h3>
+										<p>Design, Photography</p>
+									</div>
+									<div class="folio-overview">
+										<span class="folio-link"><i class="fa fa-link"></i></a></span> <span
+											class="folio-expand"><a
+											href="/images/portfolio/portfolio-details.jpg"
+											data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="folio-item wow fadeInLeftBig"
+						data-wow-duration="1000ms" data-wow-delay="400ms">
+						<div class="folio-image">
+							<img class="img-responsive"
+								src="/images/portfolio/2.jpg" alt="">
+						</div>
+						<div class="overlay">
+							<div class="overlay-content">
+								<div class="overlay-text">
+									<div class="folio-info">
+										<h3>Time Hours</h3>
+										<p>Design, Photography</p>
+									</div>
+									<div class="folio-overview">
+										<span class="folio-link"></span> <span class="folio-expand"><a
+											href="/images/portfolio/portfolio-details.jpg"
+											data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="folio-item wow fadeInRightBig"
+						data-wow-duration="1000ms" data-wow-delay="500ms">
+						<div class="folio-image">
+							<img class="img-responsive"
+								src="/images/portfolio/3.jpg" alt="">
+						</div>
+						<div class="overlay">
+							<div class="overlay-content">
+								<div class="overlay-text">
+									<div class="folio-info">
+										<h3>Time Hours</h3>
+										<p>Design, Photography</p>
+									</div>
+									<div class="folio-overview">
+										<span class="folio-link"></span> <span class="folio-expand"><a
+											href="/images/portfolio/portfolio-details.jpg"
+											data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="folio-item wow fadeInLeftBig"
+						data-wow-duration="1000ms" data-wow-delay="600ms">
+						<div class="folio-image">
+							<img class="img-responsive"
+								src="/images/portfolio/4.jpg" alt="">
+						</div>
+						<div class="overlay">
+							<div class="overlay-content">
+								<div class="overlay-text">
+									<div class="folio-info">
+										<h3>Time Hours</h3>
+										<p>Design, Photography</p>
+									</div>
+									<div class="folio-overview">
+										<span class="folio-link"></span> <span class="folio-expand"><a
+											href="/images/portfolio/portfolio-details.jpg"
+											data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="folio-item wow fadeInRightBig"
+						data-wow-duration="1000ms" data-wow-delay="700ms">
+						<div class="folio-image">
+							<img class="img-responsive"
+								src="/images/portfolio/5.jpg" alt="">
+						</div>
+						<div class="overlay">
+							<div class="overlay-content">
+								<div class="overlay-text">
+									<div class="folio-info">
+										<h3>Time Hours</h3>
+										<p>Design, Photography</p>
+									</div>
+									<div class="folio-overview">
+										<span class="folio-link"></span> <span class="folio-expand"><a
+											href="/images/portfolio/portfolio-details.jpg"
+											data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="folio-item wow fadeInLeftBig"
+						data-wow-duration="1000ms" data-wow-delay="800ms">
+						<div class="folio-image">
+							<img class="img-responsive"
+								src="/images/portfolio/6.jpg" alt="">
+						</div>
+						<div class="overlay">
+							<div class="overlay-content">
+								<div class="overlay-text">
+									<div class="folio-info">
+										<h3>Time Hours</h3>
+										<p>Design, Photography</p>
+									</div>
+									<div class="folio-overview">
+										<span class="folio-link"></span> <span class="folio-expand"><a
+											href="/images/portfolio/portfolio-details.jpg"
+											data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="folio-item wow fadeInRightBig"
+						data-wow-duration="1000ms" data-wow-delay="900ms">
+						<div class="folio-image">
+							<img class="img-responsive"
+								src="/images/portfolio/7.jpg" alt="">
+						</div>
+						<div class="overlay">
+							<div class="overlay-content">
+								<div class="overlay-text">
+									<div class="folio-info">
+										<h3>Time Hours</h3>
+										<p>Design, Photography</p>
+									</div>
+									<div class="folio-overview">
+										<span class="folio-link"></span> <span class="folio-expand"><a
+											href="/images/portfolio/portfolio-details.jpg"
+											data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="folio-item wow fadeInLeftBig"
+						data-wow-duration="1000ms" data-wow-delay="1000ms">
+						<div class="folio-image">
+							<img class="img-responsive"
+								src="/images/portfolio/8.jpg" alt="">
+						</div>
+						<div class="overlay">
+							<div class="overlay-content">
+								<div class="overlay-text">
+									<div class="folio-info">
+										<h3>Time Hours</h3>
+										<p>Design, Photography</p>
+									</div>
+									<div class="folio-overview">
+										<span class="folio-link"></span> <span class="folio-expand"><a
+											href="/images/portfolio/portfolio-details.jpg"
+											data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="portfolio-single-wrap">
+			<div id="portfolio-single"></div>
+		</div>
+		<!-- /#portfolio-single-wrap -->
+	</section>
+	<!--/#portfolio-->
+	<section id="features" class="parallax">
+		<div class="container">
+			<div class="row count">
+				<div class="col-sm-4 col-xs-6 wow fadeInLeft"
+					data-wow-duration="1000ms" data-wow-delay="300ms">
+					<i class="fa fa-user"></i>
+					<h3 class="timer">4000</h3>
+					<p>Freelancer</p>
+				</div>
+				<div class="col-sm-4 col-xs-6 wow fadeInLeft"
+					data-wow-duration="1000ms" data-wow-delay="500ms">
+					<i class="fa fa-desktop"></i>
+					<h3 class="timer">200</h3>
+					<p>Job offer per week</p>
+				</div>
+				<div class="col-sm-4 col-xs-6 wow fadeInLeft"
+					data-wow-duration="1000ms" data-wow-delay="900ms">
+					<i class="fa fa-comment-o"></i>
+					<h3>24/7</h3>
+					<p>Always available.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<div th:replace="template :: footer"></div>
 </body>
-
 </html>

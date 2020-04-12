@@ -7,16 +7,11 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
-
 import org.sid.entities.Freelancer;
-
-import org.sid.services.ResearchService;
-
 import org.sid.entities.Offre;
-
+import org.sid.services.RatingService;
+import org.sid.services.ResearchService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,41 +21,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SearchController {
 	@Autowired
 	private ResearchService researchService;
+	@Autowired
+	private RatingService ratingService;
+	public int pageSizeOffre = 2;
+	public int pageSizeFreelancers = 6;
 
 	@RequestMapping(value = "/freelancerPage")
 	public String freelancerPage() {
-
-		return "freelancers";}
- @RequestMapping("/offres")
- public String SearchOffer(Model model) {
- 	model.addAttribute("offres",researchService.OffersList());
- 	return "Liste des offres";}
- 
-@RequestMapping("/offremotclÃ©")
-public String ChercherParMotcle(Model model,@RequestParam("word")String word) {
-	model.addAttribute("offres",researchService.OfferslistByKeyword(word));
-	
-	return "Liste des offres";
-}
- 
- 
+		return "redirect:/freelancerPageSerach";
+	}
 
 	@RequestMapping(value = "/freelancerPageSerach")
-	public String freelancerPageSearch(Model model, @RequestParam("ville") String ville,
-			@RequestParam("competance") String competance) {
+	public String freelancerPageSearch(Model model, @RequestParam(name = "ville", defaultValue = "tout") String ville,
+			@RequestParam(name="competance" , defaultValue = "tout") String competance, HttpSession session) {
 		Set<Freelancer> freelancers;
 		if (ville.equals("tout") && competance.equals("tout")) {
 			freelancers = researchService.listAllFreelancers();
 		} else if (ville.equals("tout")) {
-			freelancers = researchService.SearchBySkills(competance);
-					
-
+			freelancers = researchService.searchBySkills(competance);
 		} else if (competance.equals("tout")) {
-			freelancers = researchService.SearchByLocation(ville);
-
+			freelancers = researchService.searchByLocation(ville);
 		} else {
-			freelancers = researchService.SearchBySkillsAndLocation(ville, competance);
-
+			freelancers = researchService.searchBySkillsAndLocation(ville, competance);
 		}
 		List<Freelancer> f = new ArrayList<Freelancer>();
 		List<Double> notes = new ArrayList<Double>();
@@ -68,21 +50,18 @@ public String ChercherParMotcle(Model model,@RequestParam("word")String word) {
 		freelancers = freelancers == null ? new HashSet<Freelancer>() : freelancers;
 		for (Freelancer freelancer : freelancers) {
 			f.add(freelancer);
-			notes.add(10.0);
+			double note = ratingService.recalculateAverage(freelancer);
 			Object[] oo = new Object[2];
 			oo[0] = freelancer;
-			oo[1] = 10;
+			oo[1] = note;
 			object.add(oo);
-			// notes.add(ServiceEvaluation.RecalculerMoyenne(freelancer));
+			notes.add(note);
 		}
-		model.addAttribute("all", object);
-		model.addAttribute("freelancers", f);
-		model.addAttribute("notes", notes);
-
-
+		session.setAttribute("freelancers", object);
+		session.setAttribute("notes", notes);
 		return "redirect:/getPageFreelancers";
 	}
-
+	
 	@RequestMapping("/getPageFreelancers")
 	public String getPageFreelancers(Model model, HttpSession session,
 			@RequestParam(name = "pg", defaultValue = "0") int pg) {
@@ -91,7 +70,6 @@ public String ChercherParMotcle(Model model,@RequestParam("word")String word) {
 		pg = pg + 1;
 		int size = pageSizeFreelancers, from = (pg - 1) * size, to;
 		from = from < 0 ? 0 : from;
-
 		to = from + size;
 		to = to >= object.size() ? object.size() : to;
 		System.out.println("from  " + from + "  to  " + to);
@@ -99,27 +77,24 @@ public String ChercherParMotcle(Model model,@RequestParam("word")String word) {
 		model.addAttribute("all", object.subList(from, to));
 		model.addAttribute("pages", pages);
 		model.addAttribute("notes", notes.subList(from, to));
-
 		return "freelancers";
 	}
-	public int pageSizeOffre = 2;
-	public int pageSizeFreelancers = 6;
 
 	@RequestMapping("/offres")
 	public String ChercherOffre(Model model, @RequestParam(name = "page", defaultValue = "0") int pg,
 			HttpSession session) {
-		List<Offre> offres = researchService.OffersList();
+		List<Offre> offres = researchService.offersList();
 		model.addAttribute("offres", offres);
 		session.setAttribute("offres", offres);
 		int[] pages = new int[offres.size() / pageSizeOffre];
 		model.addAttribute("pages", pages);
-		return "redirect:/getPage";// "ListOffre";
+		return "redirect:/getPage";
 	}
 
 	@RequestMapping("/offremotclé")
 	public String ChercherParMotcle(Model model, @RequestParam("mot") String mot, HttpSession session) {
 		List<Offre> offresParMotCle = new ArrayList<Offre>(), offres;
-		offres = researchService.OffersList();
+		offres = researchService.offersList();
 		for (Offre offre : offres) {
 			if (offre.getDescription().contains(mot))
 				offresParMotCle.add(offre);
@@ -128,7 +103,7 @@ public String ChercherParMotcle(Model model,@RequestParam("word")String word) {
 		model.addAttribute("offres", offresParMotCle);
 		int[] pages = new int[offresParMotCle.size() / pageSizeOffre];
 		model.addAttribute("pages", pages);
-		return "redirect:/getPage";// "ListOffre";
+		return "redirect:/getPage";
 	}
 
 	@RequestMapping("/getPage")
@@ -137,7 +112,6 @@ public String ChercherParMotcle(Model model,@RequestParam("word")String word) {
 		pg = pg + 1;
 		int size = pageSizeOffre, from = (pg - 1) * size, to;
 		from = from < 0 ? 0 : from;
-
 		to = from + size;
 		to = to >= offres.size() ? offres.size() : to;
 		System.out.println("from  " + from + "  to  " + to);

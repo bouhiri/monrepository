@@ -45,9 +45,8 @@
 
 <body>
 	<div th:replace="template :: header"></div>
-
 	<section>
-		<div >
+		<div class="container bg-ligth">
 			<div class="row">
 				<div class="col-12 bg-light py-5">
 					<div class="col-lg-8 offset-md-4">
@@ -86,11 +85,10 @@
 										<option>enseignement et formation</option>
 										<option>Hygiène et sécurité</option>
 										<option>Jardinage et exterieur maison</option>
-										<option>Mécanique automobile et entretien de
-											véhicules</option>
+										<option>Mécanique automobile et entretien de véhicules</option>
 										<option>Peinture</option>
 										<option>Plomberie</option>
-										<option>Menuiserie aluminium</option>
+										<option>Menuiserie </option>
 										<option>Rédaction et traduction</option>
 										<option>Traiteur et organisateurs de fêtes</option>
 									</select>
@@ -102,88 +100,37 @@
 					</div>
 				</div>
 			</div>
-			<span class="position-absolute"> <!-- intersection trigger-->
+			<span class="position-absolute"> 
 			</span>
 			<div class="row">
-				<div class="col-md-2 bg-light py-3 px-1">
-					<div class="sticky-top">
-						<ul class="nav pb-3 flex-md-column justify-content-center p-3" >
-							<li class="nav-item text-truncate"><a
-								class="nav-link text-purple d-md-inline d-none" href="#">Top
-									on mobile ↓</a></li>
-							<li class="nav-item text-truncate"><a
-								class="nav-link text-purple" href="#">Link 1</a></li>
-							<li class="nav-item text-truncate"><a
-								class="nav-link text-purple" href="#">Link 9</a></li>
-							<li class="nav-item"><a class="nav-link text-purple"
-								href="#">Link 10</a></li>
-						</ul>
-					</div>
-				</div>
+				<div th:replace="Sectiontemplate :: aside"></div>
 				<main class="col py-3">
 					<th:block th:each="f: ${all}">
 						<div class="container mt-3">
 							<div class="media border p-3 w-100">
 								<div class="media-body">
 									<h4 th:text="${f[0].nom}">
-										<small><i>Java Developper</i></small>
+										<small><i th:text="${f[0].prenom}"></i></small>
 									</h4>
-									<h4>
-										TNAJI Khalid <small><i>Java Developper</i></small>
-									</h4>
-									<p>I can Design a Dynamic web sites with new technologies,
-										new frameworks</p>
-										<div sec:authorize="hasRole('ROLE_PARTICULIER')">
-										
-										</div>
-										<a th:href="@{/BBseeProfile(id=${f[0].idFreelancer})}"
-										class="btn btn-primary">See Profile</a>
-									 <span class="badge badge-success float-sm-right" th:text="${f[1]}"></span>
+									<p th:text="${f[0].presentation}"></p>
+									<div sec:authorize="hasRole('ROLE_PARTICULIER')"></div>
+									<a th:href="@{/BBseeProfile(id=${f[0].idFreelancer})}"
+										class="btn btn-primary">voire le profile</a> <span
+										class="badge badge-success float-sm-right" th:text="${f[1]}"></span>
 								</div>
 							</div>
 						</div>
 					</th:block>
 					<div class="container">
-					 <ul class="pagination">
-					   <li class="page-item" th:each="p,status:${pages}">
-					    <a  class="page-link" th:href="@{/getPageFreelancers(pg=${status.index})}" th:text="${status.index}"></a>
-					   </li>
-					 </ul>
+						<ul class="pagination">
+							<li class="page-item" th:each="p,status:${pages}"><a
+								class="page-link"
+								th:href="@{/getPageFreelancers(pg=${status.index})}"
+								th:text="${status.index}"></a></li>
+						</ul>
 					</div>
-					<h4>The End.</h4>
 				</main>
-				<div class="col-sm-3 py-3">
-					<div class="row sticky-top">
-						<div class="col-12">
-							<h6>Woo-hoo!</h6>
-							<p>Got my arm stuck in a vending machine! Vice sustainable
-								cardigan, Williamsburg master cleanse hella.</p>
-						</div>
-						<div class="col-lg-6">
-							<div class="card card-body mb-4">Put some content here.</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="card card-body mb-4">Maybe ads or links.</div>
-						</div>
-						<div class="col-12">
-							<p>3 wolf moon retro jean shorts chambray sustainable roof
-								party. Shoreditch vegan artisan Helvetica. Tattooed Codeply Echo
-								Helvetica Williamsburg sartorial tote bag distillery Portland
-								before they sold out gastropub taxidermy Vice.</p>
-						</div>
-						<div class="col-lg-6">
-							<div class="card card-body mb-4">Put some content here.</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="card card-body mb-4">Maybe ads or links.</div>
-						</div>
-						<div class="col-12">
-							<hr>
-							<div class="card card-body mb-4">Master crafter foo-bar
-								choo.</div>
-						</div>
-					</div>
-				</div>
+				<div th:replace="Sectiontemplate :: section"></div>
 			</div>
 		</div>
 	</section>

@@ -38,8 +38,10 @@ public class ResearchServiceImpl implements ResearchService {
 	private ParticularRepository particularRepository;
 
 	@Override
-	public Set<Freelancer> SearchBySkills(String domaine) {
-		Optional<Competence> freelancers = skillsRepository.findByDomain(domaine);
+
+	public Set<Freelancer> searchBySkills(String domaine) {
+		Optional<Competence> freelancers = skillsRepository.findByDomaine(domaine);
+
 		if (freelancers.isPresent())
 			return freelancers.get().getFreelancers();
 		else
@@ -48,29 +50,37 @@ public class ResearchServiceImpl implements ResearchService {
 
 	@Override
 
-	public Set<Freelancer> SearchByLocation(String ville) {
-		Optional<Localisation> freelancers = locationRepository.findByCity(ville);
-		if (freelancers.isPresent())
-			return freelancers.get().getFreelancers();
-		else
-
+	public Set<Freelancer> searchByLocation(String ville) {
+		List<Localisation> all  = locationRepository.findAllByVille( ville);
+		Set<Freelancer> freelancers = new HashSet<Freelancer>();
+		if(all != null ) {
+			for (Localisation localisation : all) {
+				freelancers.addAll(localisation.getFreelancers());
+			}
+			return freelancers;
+		} else {
 			return null;
+		}
 	}
 
 	@Override
-	public List<Offre> OffersList() {
+
+	public List<Offre> offersList() {
+
 		return offerRepository.findAll();
 	}
 
 	@Override
-	public List<Offre> OfferslistByKeyword(String word) {
-		return offerRepository.OfferslistByKeyword("%" + word + "%");
+
+	public List<Offre> offerslistByKeyword(String word) {
+		return offerRepository.OffersListByKeyWord("%" + word + "%");
 	}
 
 	@Override
-	public Set<Freelancer> SearchBySkillsAndLocation(String ville, String domaine) {
-		Set<Freelancer> freelancerParCompetance = SearchBySkills(domaine);
-		Set<Freelancer> freelancerParLocalisation = SearchByLocation(ville);
+	public Set<Freelancer> searchBySkillsAndLocation(String ville, String domaine) {
+		Set<Freelancer> freelancerParCompetance = searchBySkills(domaine);
+		Set<Freelancer> freelancerParLocalisation = searchByLocation(ville);
+
 
 		Set<Freelancer> outPut = new HashSet<Freelancer>();
 		if (freelancerParCompetance != null) {
@@ -159,12 +169,16 @@ public class ResearchServiceImpl implements ResearchService {
 
 	@Override
 	public Competence findSkillsByDomain(String domaine) {
-		Optional<Competence> competanceOptional = skillsRepository.findByDomain(domaine);
+
+		Optional<Competence> competanceOptional = skillsRepository.findByDomaine(domaine);
+
 		return competanceOptional.isPresent() ? competanceOptional.get() : null;
 	}
 
 	@Override
-	public void addSkills(Competence competence, Freelancer freelancer) {
+
+	public void addSkill(Competence competence, Freelancer freelancer) {
+
 		Set<Freelancer> f = competence.getFreelancers();
 		Set<Competence> c = freelancer.getCompetences();
 		c.add(competence);
@@ -178,7 +192,9 @@ public class ResearchServiceImpl implements ResearchService {
 
 	@Override
 	public void deleteSkills(Competence competence, Freelancer freelancer) {
-		Set<Competence> competences =  freelancer.getCompetences();
+
+		Set<Competence> competences = freelancer.getCompetences();
+
 		competences.remove(competence);
 		freelancer.setCompetences(competences);
 		freelancerRepository.save(freelancer);
@@ -190,7 +206,16 @@ public class ResearchServiceImpl implements ResearchService {
 		return competanceOptional.isPresent() ? competanceOptional.get() : null;
 	}
 
+
 	
+	
+
+
+
+	@Override
+	public Localisation findLocalisationByVille(String ville) {
+		Optional<Localisation> optional = locationRepository.findByVille(ville);
+		return optional.isPresent() ? optional.get() : null;
 	}
 
-
+}
