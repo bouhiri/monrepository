@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+<title>Freelancers</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../static/styles.css"
+	th:href="@{/styles.css}">
+
+</head>
+<style>
+.text-purple {
+	color: var(- -purple);
+}
+
+.sticky-top {
+	transition: padding 0.2s ease;
+}
+
+.stuck .sticky-top {
+	padding-top: 15px;
+}
+</style>
+<script>
+    (new IntersectionObserver(function(e,o){
+    if (e[0].intersectionRatio > 0){
+        document.documentElement.removeAttribute('class');
+    } else {
+        document.documentElement.setAttribute('class','stuck');
+    };
+})).observe(document.querySelector('.position-absolute'));
+    </script>
+
+<body>
+	<div th:replace="template :: header"></div>
+	<section>
+		<div>
+			<div class="row">
+				<div class="col-12 bg-light py-5">
+					<div class="col-lg-8 offset-md-4">
+						<form class="form" role="form" autocomplete="off" action="#"
+							th:action="@{/freelancerPageSerach}" id="loginForm" method="get">
+							<div class="row">
+								<div class="col-lg-3 pb-3">
+									<label for="exampleSt">Ville</label> <select
+										class="form-control" id="exampleSt" name="ville">
+										<option>tout</option>
+										<option>Agadir</option>
+										<option>Casablanca</option>
+										<option>Eljadida</option>
+										<option>Fes</option>
+										<option>Kenitra</option>
+										<option>Marrakech</option>
+										<option>Mohammedia</option>
+										<option>Oujda</option>
+										<option>Rabat</option>
+										<option>Safi</option>
+										<option>Sale</option>
+										<option>Tanger</option>
+									</select>
+								</div>
+								<div class="col-lg-3 pb-3">
+									<label for="exampleSt">Competances</label> <select
+										class="form-control" id="exampleSt" name="competance">
+										<option>tout</option>
+										<option>Aide médico</option>
+										<option>Baby sitting et Employés à domicile</option>
+										<option>Beauté et bien être</option>
+										<option>brochures et flyers</option>
+										<option>Decoration et amenagement interieur</option>
+										<option>développeurs web</option>
+										<option>Electricité</option>
+										<option>enseignement et formation</option>
+										<option>Hygiène et sécurité</option>
+										<option>Jardinage et exterieur maison</option>
+										<option>Mécanique automobile et entretien de véhicules</option>
+										<option>Peinture</option>
+										<option>Plomberie</option>
+										<option>Menuiserie </option>
+										<option>Rédaction et traduction</option>
+										<option>Traiteur et organisateurs de fêtes</option>
+									</select>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-outline-success"
+								id="btnLogin">Chercher</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<span class="position-absolute"> 
+			</span>
+			<div class="row">
+				<div th:replace="Sectiontemplate :: aside"></div>
+				<main class="col py-3">
+					<th:block th:each="f: ${all}">
+						<div class="container mt-3">
+							<div class="media border p-3 w-100">
+								<div class="media-body">
+									<h4 th:text="${f[0].nom}">
+										<small><i th:text="${f[0].prenom}"></i></small>
+									</h4>
+									<p th:text="${f[0].presentation}"></p>
+									<div sec:authorize="hasRole('ROLE_PARTICULIER')"></div>
+									<a th:href="@{/BBseeProfile(id=${f[0].idFreelancer})}"
+										class="btn btn-primary">voire le profile</a> <span
+										class="badge badge-success float-sm-right" th:text="${f[1]}"></span>
+								</div>
+							</div>
+						</div>
+					</th:block>
+					<div class="container">
+						<ul class="pagination">
+							<li class="page-item" th:each="p,status:${pages}"><a
+								class="page-link"
+								th:href="@{/getPageFreelancers(pg=${status.index})}"
+								th:text="${status.index}"></a></li>
+						</ul>
+					</div>
+				</main>
+				<div th:replace="Sectiontemplate :: section"></div>
+			</div>
+		</div>
+	</section>
+	<div th:replace="template :: footer"></div>
+</body>
+</html>

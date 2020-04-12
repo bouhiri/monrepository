@@ -1,37 +1,19 @@
 <!DOCTYPE HTML>
-<html xmlns:th="https://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"	
+>
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="../static/styles.css"
-	th:href="@{/styles.css}">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/styles.css" th:href="@{/styles.css}">
+    
 </head>
-<style>
-.text-purple {
-	color: var(- -purple);
-}
 
-.sticky-top {
-	transition: padding 0.2s ease;
-}
-
-.stuck .sticky-top {
-	padding-top: 15px;
-}
-</style>
 <script>
     (new IntersectionObserver(function(e,o){
     if (e[0].intersectionRatio > 0){
@@ -43,26 +25,24 @@
     </script>
 
 <body>
-	<div layout:fragment="aside">
-		<div class="col-md-2 bg-light py-3 px-1">
+	<aside class="col-md-2 bg-dark" layout:fragment="aside">
+		<div >
 			<div class="sticky-top">
 				<ul class="nav pb-3 flex-md-column justify-content-center p-3">
 					<li class="nav-item text-truncate"><a
-						class="nav-link text-purple d-md-inline d-none" href="#">Top
-							on mobile ↓</a></li>
+						class="nav-link text-purple d-md-inline d-none" href="#">Top sur mobile ↓</a></li>
 					<li class="nav-item text-truncate"><a
-						class="nav-link text-purple" href="#">Link 1</a></li>
+						class="nav-link text-purple" href="#">Lien 1</a></li>
 					<li class="nav-item text-truncate"><a
-						class="nav-link text-purple" href="#">Link 9</a></li>
-					<li class="nav-item"><a class="nav-link text-purple" href="#">Link
-							10</a></li>
+						class="nav-link text-purple" href="#">Lien 9</a></li>
+					<li class="nav-item"><a class="nav-link text-purple" href="#">Lien 10</a></li>
 				</ul>
 			</div>
 		</div>
-	</div>
+	</aside>
 
-	<div layout:fragment="asideR">
-		<div class="col-sm-3 py-3">
+	<section  class="col-sm-3 py-3" layout:fragment="section">
+		<div >
 			<div class="row sticky-top">
 				<div class="col-12">
 					<h6>Woo-hoo!</h6>
@@ -93,7 +73,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</section>
 
 
 </body>

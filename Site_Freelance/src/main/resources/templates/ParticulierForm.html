@@ -1,75 +1,95 @@
 <!DOCTYPE HTML>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Inscription Particulier</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="../static/styles.css"
+<title>Inscription Particulier</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../static/styles.css"
 	th:href="@{/styles.css}">
 
 </head>
 <body>
 	<div th:replace="template :: header"></div>
-		<div class="col-md-6 offset-md-3">
-        <span class="anchor" id="formRegister"></span>
-        <hr class="mb-5">
-        <!-- form card register -->
-        <div class="card card-outline-secondary">
-            <div class="card-header">
-                <h3 class="mb-0">Inscription Particulier</h3>
-            </div>
-            <div class="card-body">
-	<form class="form" role="form" action="#" autocomplete="off" id="loginForm" 
-				th:action="@{/particulierinscription}" th:object="${particulierForm}" 
-					 method="POST">
-                    <div class="form-group">
-                        <label for="inputName">Nom</label>
-                        <input type="text"  class="form-control" id="inputName" th:field="*{nom}" required="required"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPrenom">Prenom</label>
-                        <input type="text" class="form-control" id="inputPrenom" th:field="*{prenom}" required="required"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail3">Email</label>
-                        <input type="email" class="form-control" id="inputEmail3" th:field="*{email}" required="required"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputphone">Numero de telephone</label>
-                        <input type="number" class="form-control" id="inputphone" th:field="*{mobile}"required="required"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleMessage">A propos de vous</label>
-                        <textarea class="form-control" id="exampleMessage" th:field="*{presentation}" ></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="inputAdresse">Adresse</label>
-                        <input type="text" class="form-control" id="inputAdresse" th:field="*{adresse}" required="required"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPassword3">Mot de passe</label>
-                        <input type="password" class="form-control" id="inputPassword3" th:field="*{password}" required="required"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputVerify3">Confirmer mot de passe</label>
-                        <input type="password" class="form-control" id="inputVerify3"  th:field="*{repassword}" required="required"/>
-                        <div class="text-danger" th:if="${messagecn}">  les mot de passes ne correspondent pas </div>
-                        
-                    </div>
-                    <div>
-                        <button type="submit" class="btn btn-primary">Register</button>
-                    </div>
-                    </form>
-                   </div> 
-				
-				<a th:href="profilParticulier"></a>
+		<div style="background-image: url('/images/bg-01.jpg');background-size: cover">
+	
+	<div class="col-md-6 offset-md-3">
+		<span class="anchor" id="formRegister"></span>
+		<hr class="mb-5">
+		<!-- form card register -->
+		<div class="card card-outline-secondary">
+			<div class="card-header">
+				<h3 class="mb-0">Inscription Particulier</h3>
 			</div>
-			
+			<div class="card-body">
+				<form class="form" role="form" action="#" autocomplete="off"
+					id="loginForm" th:action="@{/particulierinscription}"
+					th:object="${particulierForm}" method="POST">
+					<div class="form-group">
+						<label for="inputName">Nom</label> <input type="text"
+							class="form-control" id="inputName" th:field="*{nom}"
+							required="required" />
+					</div>
+					<div class="form-group">
+						<label for="inputPrenom">Prenom</label> <input type="text"
+							class="form-control" id="inputPrenom" th:field="*{prenom}"
+							required="required" />
+					</div>
+					<div class="form-group">
+						<label for="inputEmail3">Email</label> <input type="email"
+							class="form-control" id="inputEmail3" th:field="*{email}"
+							required="required" />
+					</div>
+					<div class="form-group">
+						<label for="inputphone">Numero de telephone</label> <input
+							type="number" class="form-control" id="inputphone"
+							th:field="*{mobile}" required="required" />
+					</div>
+					<div class="form-group">
+						<label for="exampleMessage">A propos de vous</label>
+						<textarea class="form-control" id="exampleMessage"
+							th:field="*{presentation}"></textarea>
+					</div>
+
+					<div class="form-group">
+						<label for="inputAdresse">Adresse</label> <input type="text"
+							class="form-control" id="inputAdresse" th:field="*{adresse}"
+							required="required" />
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3">Mot de passe</label> <input
+							type="password" class="form-control" id="inputPassword3"
+							th:field="*{password}" required="required" /> <small
+							class="text-info">Le mot de passe doit depasser 8
+							caractères</small>
+
+					</div>
+					<div class="form-group">
+						<label for="inputVerify3">Confirmer mot de passe</label> <input
+							type="password" class="form-control" id="inputVerify3"
+							th:field="*{repassword}" required="required" />
+						<div class="text-danger" th:if="${message_Repassword}">les
+							mot de passes ne correspondent pas</div>
+
+					</div>
+					<div>
+						<button type="submit" class="btn btn-primary">S'inscrire</button>
+					</div>
+				</form>
+				<div th:if="${message_Mail}">Adresse email deja existante</div>
+			</div>
+
+			<a th:href="profilParticulier"></a>
+		</div>
+	</div>
+</div>
 	<div th:replace="template :: footer"></div>
 </body>
 </html>

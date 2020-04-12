@@ -51,11 +51,13 @@ public class SecurityConfiguration {
 		protected void configure(HttpSecurity http) throws Exception {
 			http.csrf().disable();
 			http.antMatcher("/AA*").authorizeRequests().anyRequest().hasRole("FREELANCER");
-			;
+
 			http.formLogin().loginPage("/AAloginFreelancer").permitAll()
 					.failureUrl("/AAloginErrorFreelancer?error=loginError")
 					.successForwardUrl("/AAconnexionSuccessFreelancer");
-			http.logout().logoutUrl("/AAlogout_Freelancer").logoutSuccessUrl("/").deleteCookies("JSESSIONID");
+			http.logout().logoutUrl("/AAlogoutFreelancer").logoutSuccessUrl("/logoutFreelancer")
+			//.deleteCookies("JSESSIONID")
+			;
 			http.exceptionHandling().accessDeniedPage("/403");
 		}
 
@@ -97,7 +99,9 @@ public class SecurityConfiguration {
 			http.formLogin().loginPage("/BBloginParticulier").permitAll()
 					.failureUrl("/BBloginErrorParticulier?error=loginError")
 					.successForwardUrl("/BBconnexionSuccessParticulier");
-			http.logout().logoutUrl("/BBlogout_Particulier").logoutSuccessUrl("/").deleteCookies("JSESSIONID");
+			http.logout().logoutUrl("/BBlogoutParticulier").logoutSuccessUrl("/logoutParticulier")
+			//.deleteCookies("JSESSIONID")
+			;
 			http.exceptionHandling().accessDeniedPage("/403");
 		}
 	}
