@@ -23,7 +23,7 @@ public class SearchController {
 	private ResearchService researchService;
 	@Autowired
 	private RatingService ratingService;
-	public int pageSizeOffre = 2;
+	public int pageSizeOffre = 4;
 	public int pageSizeFreelancers = 6;
 
 	@RequestMapping(value = "/freelancerPage")

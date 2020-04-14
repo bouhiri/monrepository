@@ -72,7 +72,7 @@
 									</select>
 								</div>
 								<div class="col-lg-3 pb-3">
-									<label for="exampleSt">Competances</label> <select
+									<label for="exampleSt">Compétences</label> <select
 										class="form-control" id="exampleSt" name="competance">
 										<option>tout</option>
 										<option>Aide médico</option>
@@ -115,7 +115,7 @@
 									<p th:text="${f[0].presentation}"></p>
 									<div sec:authorize="hasRole('ROLE_PARTICULIER')"></div>
 									<a th:href="@{/BBseeProfile(id=${f[0].idFreelancer})}"
-										class="btn btn-primary">voire le profile</a> <span
+										class="btn btn-primary">voir profil</a> <span
 										class="badge badge-success float-sm-right" th:text="${f[1]}"></span>
 								</div>
 							</div>

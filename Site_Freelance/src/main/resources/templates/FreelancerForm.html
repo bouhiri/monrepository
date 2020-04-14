@@ -56,42 +56,42 @@
 									required="required" />
 							</div>
 							<div class="form-group">
-								<label for="inputEmail3">Email</label> <input type="email"
+								<label for="inputEmail3">E-mail</label> <input type="email"
 									class="form-control" id="inputEmail3" th:field="*{email}"
 									required="required" /> <span
 									class="form-text small text-muted" th:if="${message1}">
-									Merci d'entre une adresse email valid </span>
+									Merci d'entrer une adresse e-mail valide </span>
 							</div>
 							<div class="form-group">
 								<label for="inputphone">Numero de téléphone</label> <input
 									type="number" class="form-control" id="inputphone"
 									th:field="*{mobile}" required="required" /> <span
 									class="form-text small text-muted" th:if="${message1}">
-									Merci d'entre un numero de telephone</span>
+									Merci d'entrer un numero de téléphone valide</span>
 							</div>
 							<div class="form-group">
-								<label for="inputdomaine">Domaine de votre competence ou
+								<label for="inputdomaine">Domaine de votre competence ou de
 									votre diplome</label> <input type="text" class="form-control"
 									id="inputdomaine" th:field="*{domaine}" />
 							</div>
 
 							<div class="form-group">
 								<label for="inputVille">Ville</label> <select
-									class="form-control" id="inputVille">
-									<option>tout</option>
-                                    <option>Agadir</option>
-									<option>Casablanca</option>
-									<option>Eljadida</option>
-									<option>Fes</option>
-									<option>Kenitra</option>
-									<option>Marrakech</option>
-									<option>Mohammedia</option>
-									<option>Oujda</option>
-									<option>Rabat</option>
-									<option>Safi</option>
-									<option>Sale</option>
-									<option>Tanger</option>
-									<option>Autre</option>
+									class="form-control" id="inputVille" th:field="*{ville}">
+					
+                                    <option th:value="'Agadir'">Agadir</option>
+									<option th:value="'Casablanca'">Casablanca</option>
+									<option th:value="'Eljadida'">Eljadida</option>
+									<option th:value="'Fes'">Fes</option>
+									<option th:value="'kenitra'">Kenitra</option>
+									<option th:value="'Marrakech'">Marrakech</option>
+									<option th:value="'Mohammedia'">Mohammedia</option>
+									<option th:value="'Oujda'">Oujda</option>
+									<option th:value="'Rabat'">Rabat</option>
+									<option th:value="'Safi'">Safi</option>
+									<option th:value="'Sale'">Sale</option>
+									<option th:value="'Tanger'">Tanger</option>
+									<option th:value="'Autre'">Autre</option>
 								</select>
 							</div>
 							<div class="form-group">
@@ -106,13 +106,13 @@
 								<label for="exampleMessage">Experience</label>
 								<textarea class="form-control" id="exampleMessage"
 									th:field="*{experience}"></textarea>
-								<small class="text-info">Merci de décrire vos experiences ici.</small>
+								<small class="text-info">Merci de décrire vos experiences ici</small>
 							</div>
 							<div class="form-group">
-								<label for="inputDiplomes">Diplomes</label>
+								<label for="inputDiplomes">Diplôme</label>
 								<textarea class="form-control" id="inputDiplomes"
 									th:field="*{diplome}"></textarea>
-								<small class="text-info">Merci de décrire vos Diplomes ici.</small>
+								<small class="text-info">Merci de décrire vos Diplômes ici</small>
 							</div>
 
 							<div class="form-group">
@@ -139,7 +139,7 @@
 								<button type="submit" class="btn btn-primary"> S'inscrire</button>
 							</div>
 						</form>
-						<div th:if="${message_Mail}">Adresse email deja existante</div>
+						<div th:if="${message_Mail}">Adresse e-mail déjà existante</div>
 						<!-- <a th:href="profilFreelancer"></a> -->
 					</div>
 				</div>

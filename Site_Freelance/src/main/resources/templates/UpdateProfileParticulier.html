@@ -18,14 +18,15 @@
 <body>
 	<div th:replace="template :: header"></div>
 	<section>
-		<div th:if="${message_Update}">Les informations ont bien été modifier</div>
-		<div th:if="${message_Update_false}">Les informations sont erroné</div>
+		<div th:if="${message_Update}">Les informations ont bien été modifié</div>
+		<div th:if="${message_Update_false}">Les informations sont
+			erronées</div>
 		<ul class="nav nav-tabs">
 			<li class="nav-item"><a class="nav-link active"
-				data-toggle="tab" href="#home">Information Personnel</a></li>
+				data-toggle="tab" href="#home">Informations personnelles</a></li>
 
 			<li class="nav-item"><a class="nav-link" data-toggle="tab"
-				href="#menu2">Securité</a></li>
+				href="#menu2">Sécurité</a></li>
 		</ul>
 
 		<!-- Tab panes -->
@@ -47,12 +48,12 @@
 										required="required" />
 								</div>
 								<div class="form-group">
-									<label for="inputPrenom">Prenom</label> <input type="text"
+									<label for="inputPrenom">Prénom</label> <input type="text"
 										class="form-control" id="inputPrenom" name="prenom"
 										th:value="${particulier.prenom}" required="required" />
 								</div>
 								<div class="form-group">
-									<label for="inputTelephone">Telephone</label> <input
+									<label for="inputTelephone">Numéro de téléphone</label> <input
 										type="number" class="form-control" id="inputTelephone"
 										name="mobile" th:value="${particulier.mobile}"
 										required="required" />
@@ -63,7 +64,7 @@
 										th:value="${particulier.email}" required="required" />
 								</div>
 								<div class="form-group">
-									<label for="inputEmail3">Adress</label> <input type="text"
+									<label for="inputEmail3">Adresse</label> <input type="text"
 										class="form-control" id="inputEmail3" name="adresse"
 										th:value="${particulier.adresse}" required="required" />
 								</div>
@@ -95,7 +96,7 @@
 								autocomplete="off" method="post">
 
 								<div class="form-group">
-									<label for="inputPasswordOld">Mot de passe actuelle</label> <input
+									<label for="inputPasswordOld">Mot de passe actuel</label> <input
 										type="password" class="form-control" name="expassword"
 										required="required">
 								</div>

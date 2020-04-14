@@ -46,14 +46,14 @@
 						<label for="uname1">Email</label> <input type="text"
 							class="form-control" name="username" id="uname1"
 							required="required" /> <span class="form-text small text-muted"
-							th:if="${messageValid}"> merci d'entre une adresse email valid </span>
+							th:if="${messageValid}"> merci d'entrer une adresse e-mail valide </span>
 					</div>
 					<div class="form-group">
 						<label>Mot de passe</label> <input type="password"
 							class="form-control" name="password" id="pwd1"
 							required="required" autocomplete="new-password" /> <span
 							class="form-text small text-muted" th:if="${messageValid}">
-							merci de sesaire un mot de passe </span>
+							merci de saisir un mot de passe </span>
 					</div>
 					
 					<div class="container-login100-form-btn">
@@ -64,7 +64,7 @@
 							<a href="forgotPasswordFreelancerPage" class="txt1"> Mot de passe oublié ?</a>
 						</div>
 					</div>
-					<div class="text-center" th:if="${messageForm}">Courriel ou mot de passe incorrect</div>
+					<div class="text-center" th:if="${messageForm}">adresse e-mail ou mot de passe incorrect</div>
 					<div class="text-center p-t-46 p-b-20">
 						<a th:href="@{/freelancerinscription}" class="btn btn-primary" th:if="${messageForm}">S'inscrire </a>
 					</div>

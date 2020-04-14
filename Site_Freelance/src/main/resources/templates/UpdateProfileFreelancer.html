@@ -19,17 +19,16 @@
 <body>
 	<div th:replace="template :: header"></div>
 	<section>
-		<div th:if="${message_Update}">Les informations ont bien été
-			modifier</div>
+		<div th:if="${message_Update}">Les informations ont bien été modifié</div>
 		<div th:if="${message_Update_false}">Les informations sont
-			erroné</div>
+			erronées</div>
 		<ul class="nav nav-tabs">
 			<li class="nav-item"><a class="nav-link active"
-				data-toggle="tab" href="#home">Information Personnel</a></li>
+				data-toggle="tab" href="#home">Informations personnelles</a></li>
 			<li class="nav-item"><a class="nav-link" data-toggle="tab"
-				href="#menu1">Information Professionel</a></li>
+				href="#menu1">Informations Professionnelles</a></li>
 			<li class="nav-item"><a class="nav-link" data-toggle="tab"
-				href="#menu2">Securité</a></li>
+				href="#menu2">Sécurité</a></li>
 		</ul>
 
 		<!-- Tab panes -->
@@ -51,12 +50,12 @@
 										required="required" />
 								</div>
 								<div class="form-group">
-									<label for="inputPrenom">Prenom</label> <input type="text"
+									<label for="inputPrenom">Prénom</label> <input type="text"
 										class="form-control" id="inputPrenom" name="prenom"
 										th:value="${freelancer.prenom}" required="required" />
 								</div>
 								<div class="form-group">
-									<label for="inputTelephone">Telephone</label> <input
+									<label for="inputTelephone">Numéro de téléphone</label> <input
 										type="number" class="form-control" id="inputTelephone"
 										name="mobile" th:value="${freelancer.mobile}"
 										required="required" />
@@ -119,7 +118,7 @@
 								th:action="@{/AAupdateProfileFreelancerProfessional(id=${freelancer.idFreelancer})}"
 								action="#" autocomplete="off" method="post">
 								<div class="form-group">
-									<label for="inputDiplomes">Diplome</label>
+									<label for="inputDiplomes">Diplôme</label>
 									<textarea class="form-control" name="diplome"
 										id="inputDiplomes" th:text="${freelancer.diplome}"
 										required="required"></textarea>
@@ -139,7 +138,7 @@
 								</div>
 								<div class="form-group">
 									<label for="inputdomaine">Domaine de votre competence
-										ou votre diplome</label> <input type="text" class="form-control"
+										ou de votre Diplôme</label> <input type="text" class="form-control"
 										id="inputdomaine" th:text="${freelancer.domaine}"
 										name="domaine" />
 								</div>
@@ -164,7 +163,7 @@
 								autocomplete="off" method="post">
 
 								<div class="form-group">
-									<label for="inputPasswordOld">Mot de passe actuelle</label> <input
+									<label for="inputPasswordOld">Mot de passe actuel</label> <input
 										type="password" class="form-control" name="expassword"
 										required="required">
 								</div>

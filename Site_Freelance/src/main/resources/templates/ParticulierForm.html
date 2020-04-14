@@ -38,7 +38,7 @@
 							required="required" />
 					</div>
 					<div class="form-group">
-						<label for="inputPrenom">Prenom</label> <input type="text"
+						<label for="inputPrenom">Prénom</label> <input type="text"
 							class="form-control" id="inputPrenom" th:field="*{prenom}"
 							required="required" />
 					</div>
@@ -48,7 +48,7 @@
 							required="required" />
 					</div>
 					<div class="form-group">
-						<label for="inputphone">Numero de telephone</label> <input
+						<label for="inputphone">Numéro de téléphone</label> <input
 							type="number" class="form-control" id="inputphone"
 							th:field="*{mobile}" required="required" />
 					</div>
@@ -83,7 +83,7 @@
 						<button type="submit" class="btn btn-primary">S'inscrire</button>
 					</div>
 				</form>
-				<div th:if="${message_Mail}">Adresse email deja existante</div>
+				<div th:if="${message_Mail}">Adresse e-mail déjà existante</div>
 			</div>
 
 			<a th:href="profilParticulier"></a>

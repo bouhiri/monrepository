@@ -28,7 +28,7 @@
 					<h2>Note Moyenne <span class="badge badge-success float-sm-right"th:text="${note}"></span>
 					</h2>
 					<p>Loubbardi mohamed</p>
-					<h3>Domaines de Competances</h3>
+					<h3>domaine de compétence</h3>
 					<p>développeur web</p>
 					<ul class="nav nav-pills flex-column"
 						th:if="${freelancer.competences != null}">
@@ -48,7 +48,7 @@
 									th:action="@{/AAaddCompetance(id=${freelancer.idFreelancer})}"
 									action="#" autocomplete="off" method="post">
 									<div class="form-group">
-										<label for="exampleSt">Competances</label> <select
+										<label for="exampleSt">Compétences</label> <select
 											class="form-control" id="exampleSt" name="domaine">
 											<option>Aide médico</option>
 											<option>Baby sitting et Employés à domicile</option>
@@ -86,7 +86,7 @@
 					<div class="container mt-3">
 						<div class="media border p-3 w-75">
 							<div class="media-body">
-								<h4>Numero de telephone : <small><i th:text="${freelancer.mobile}"></i></small>
+								<h4>Numéro de téléphone : <small><i th:text="${freelancer.mobile}"></i></small>
 								</h4>
 								<h4>Email : <small><i th:text="${freelancer.email}"></i></small>
 								</h4>
@@ -155,9 +155,9 @@
 									autocomplete="off" method="post">
 
 									<div class="form-group">
-										<label for="B">Votre Note a ce Profile</label> <input
+										<label for="B">Votre Note sur ce Profil</label> <input
 											type="number" class="form-control" name="note" id="B" /> <small
-											class="text-info">merci de donner un note entre 0 et
+											class="text-info">merci de donner une note entre 0 et
 											10.</small>
 									</div>
 									<div class="form-group">
